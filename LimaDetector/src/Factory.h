@@ -93,7 +93,6 @@
     #include <Andor3DetInfoCtrlObj.h>
     #include <Andor3Interface.h>
     #include <Andor3RoiCtrlObj.h>
-    #include <Andor3ShutterCtrlObj.h>
     #include <Andor3SyncCtrlObj.h>    
 #endif
 
@@ -103,7 +102,7 @@ using namespace lima;
 
 class ControlFactory : public Singleton<ControlFactory>
 {
-public:
+ public:
 
     CtControl* get_control(const std::string& detector_type);
     void reset(const std::string& detector_type);

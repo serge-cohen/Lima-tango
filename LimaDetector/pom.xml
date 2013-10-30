@@ -131,13 +131,13 @@
 							<define>USE_GIGE</define>	
 							
 							<!-- define wich detector you need to ENABLE -->
-							<!--<define>AVIEX_ENABLED</define>-->
-							<define>BASLER_ENABLED</define>												 
-							<define>MARCCD_ENABLED</define>
-							<define>PILATUS_ENABLED</define>
-							<define>XPAD_ENABLED</define>
-							<define>ADSC_ENABLED</define>   
-							<define>PROSILICA_ENABLED</define>
+							<!-- <define>AVIEX_ENABLED</define> -->
+							<!-- <define>BASLER_ENABLED</define>-->
+							<!-- <define>MARCCD_ENABLED</define> -->
+							<!-- <define>PILATUS_ENABLED</define> -->
+							<!-- <define>XPAD_ENABLED</define> -->
+							<!-- <define>ADSC_ENABLED</define>    -->
+							<!-- <define>PROSILICA_ENABLED</define> -->
 							<define>SIMULATOR_ENABLED</define>
 							<define>ANDOR3_ENABLED</define>
 						</defines>
@@ -149,12 +149,12 @@
 						<!-- exclude every detector which is NOT ENABLED -->
 						<excludes>
                                                         <exclude>Aviex*.*</exclude>
-							<!--<exclude>Basler*.*</exclude>-->
-							<!--<exclude>MarCCD*.*</exclude>-->
-							<!--<exclude>Pilatus*.*</exclude>-->
-							<!--<exclude>Xpad*.*</exclude>-->
-							<!--<exclude>Adsc*.*</exclude>-->
-							<!--<exclude>Prosilica*.*</exclude>-->
+							<exclude>Basler*.*</exclude>
+							<exclude>MarCCD*.*</exclude>
+							<exclude>Pilatus*.*</exclude>
+							<exclude>Xpad*.*</exclude>
+							<exclude>Adsc*.*</exclude>
+							<exclude>Prosilica*.*</exclude>
 							<exclude>Princeton*.*</exclude>
 							<!--<exclude>Simulator*.*</exclude>-->
 							<exclude>Pco*.*</exclude>

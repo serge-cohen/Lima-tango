@@ -70,11 +70,11 @@ namespace Andor3_ns
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::Andor3(string &s)
-// 
+//
 // description : 	constructor for simulated Andor3
 //
 // in : - cl : Pointer to the DeviceClass object
-//      - s : Device name 
+//      - s : Device name
 //
 //-----------------------------------------------------------------------------
 Andor3::Andor3(Tango::DeviceClass *cl,string &s)
@@ -97,7 +97,7 @@ Andor3::Andor3(Tango::DeviceClass *cl,const char *s,const char *d)
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::delete_device()
-// 
+//
 // description : 	will be called at device destruction or at init command.
 //
 //-----------------------------------------------------------------------------
@@ -127,7 +127,7 @@ void Andor3::delete_device()
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::init_device()
-// 
+//
 // description : 	will be called at device initialization.
 //
 //-----------------------------------------------------------------------------
@@ -180,8 +180,8 @@ void Andor3::init_device()
 			m_status_message <<"Initialization Failed : Unable to get the camera object !"<< endl;
 			m_is_device_initialized = false;
 			set_state(Tango::FAULT);
-			return;			
-		}		
+			return;
+		}
 
     }
     catch (Exception& e)
@@ -209,7 +209,7 @@ void Andor3::init_device()
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::get_device_property()
-// 
+//
 // description : 	Read the device properties from database.
 //
 //-----------------------------------------------------------------------------
@@ -267,7 +267,7 @@ void Andor3::get_device_property()
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::always_executed_hook()
-// 
+//
 // description : 	method always executed before any command is executed
 //
 //-----------------------------------------------------------------------------
@@ -308,12 +308,12 @@ void Andor3::always_executed_hook()
         m_is_device_initialized = false;
         return;
     }
-	
+
 }
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_attr_hardware
-// 
+//
 // description : 	Hardware acquisition for attributes.
 //
 //-----------------------------------------------------------------------------
@@ -325,7 +325,7 @@ void Andor3::read_attr_hardware(vector<long> &attr_list)
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_adcGainStr
-// 
+//
 // description : 	Extract real attribute values for adcGainStr acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -369,7 +369,7 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_adcGainStr"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -378,14 +378,14 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_adcGainStr"));
-    }	 
-  
+    }
+
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_adcRateStr
-// 
+//
 // description : 	Extract real attribute values for adcRateStr acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -420,7 +420,7 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_adcRateStr"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -429,14 +429,14 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_adcRateStr"));
-    }	 
+    }
 }
 
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_adcGain
-// 
+//
 // description : 	Extract real attribute values for adcGain acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -457,7 +457,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_adcGain"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -466,13 +466,13 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_adcGain"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::write_adcGain
-// 
+//
 // description : 	Write adcGain attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
@@ -502,13 +502,13 @@ void Andor3::write_adcGain(Tango::WAttribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (e.getErrMsg().c_str()),
                     static_cast<const char*> ("Andor3::write_adcGain"));
-    }		
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_adcRate
-// 
+//
 // description : 	Extract real attribute values for adcRate acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -529,7 +529,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_adcRate"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -538,13 +538,13 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_adcRate"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::write_adcRate
-// 
+//
 // description : 	Write adcRate attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
@@ -574,13 +574,13 @@ void Andor3::write_adcRate(Tango::WAttribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (e.getErrMsg().c_str()),
                     static_cast<const char*> ("Andor3::write_adcRate"));
-    }		
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_electronicShutterMode
-// 
+//
 // description : 	Extract real attribute values for electronicShutterMode acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -601,7 +601,7 @@ void Andor3::read_electronicShutterMode(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_electronicShutterMode"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -610,13 +610,13 @@ void Andor3::read_electronicShutterMode(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_electronicShutterMode"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::write_electronicShutterMode
-// 
+//
 // description : 	Write electronicShutterMode attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
@@ -646,13 +646,13 @@ void Andor3::write_electronicShutterMode(Tango::WAttribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (e.getErrMsg().c_str()),
                     static_cast<const char*> ("Andor3::write_electronicShutterMode"));
-    }		
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_temperatureSP
-// 
+//
 // description : 	Extract real attribute values for temperatureSP acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -675,7 +675,7 @@ void Andor3::read_temperatureSP(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_temperatureSP"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -684,13 +684,13 @@ void Andor3::read_temperatureSP(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_temperatureSP"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::write_temperatureSP
-// 
+//
 // description : 	Write temperatureSP attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
@@ -720,13 +720,13 @@ void Andor3::write_temperatureSP(Tango::WAttribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (e.getErrMsg().c_str()),
                     static_cast<const char*> ("Andor3::write_temperatureSP"));
-    }		
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_temperature
-// 
+//
 // description : 	Extract real attribute values for temperature acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -749,7 +749,7 @@ void Andor3::read_temperature(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_temperature"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -758,13 +758,13 @@ void Andor3::read_temperature(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_temperature"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_cooler
-// 
+//
 // description : 	Extract real attribute values for cooler acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -787,7 +787,7 @@ void Andor3::read_cooler(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_cooler"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -796,20 +796,20 @@ void Andor3::read_cooler(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_cooler"));
-    }	 
+    }
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::write_cooler
-// 
+//
 // description : 	Write cooler attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
 void Andor3::write_cooler(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "Andor3::write_cooler(Tango::WAttribute &attr) entering... "<< endl;
-    
+
     try
     {
         attr.get_write_value(attr_cooler_write);
@@ -832,14 +832,14 @@ void Andor3::write_cooler(Tango::WAttribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (e.getErrMsg().c_str()),
                     static_cast<const char*> ("Andor3::write_cooler"));
-    }		
+    }
 
 }
 
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_coolingStatus
-// 
+//
 // description : 	Extract real attribute values for coolingStatus acquisition result.
 //
 //-----------------------------------------------------------------------------
@@ -864,7 +864,7 @@ void Andor3::read_coolingStatus(Tango::Attribute &attr)
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
                     static_cast<const char*> ("Andor3::read_coolingStatus"));
-    }			
+    }
     catch(Exception& e)
     {
         ERROR_STREAM << e.getErrMsg() << endl;
@@ -873,7 +873,7 @@ void Andor3::read_coolingStatus(Tango::Attribute &attr)
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
                      static_cast<const char*> ("Andor3::read_coolingStatus"));
-    }	 
+    }
 }
 
 
