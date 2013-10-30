@@ -47,6 +47,8 @@
 #include "tango.h"
 #endif
 
+#undef RGB24
+
 #include "HwInterface.h"
 #include "CtControl.h"
 #include "CtImage.h"
