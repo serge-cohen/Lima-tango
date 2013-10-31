@@ -110,8 +110,8 @@
 		<dependency>
 			<groupId>fr.soleil.lib</groupId>
 			<artifactId>YAT-${aol}-${library}-${mode}</artifactId>
-		</dependency>  
-                  
+		</dependency>
+
 	</dependencies>
 	
 	<scm>
