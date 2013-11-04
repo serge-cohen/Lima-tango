@@ -333,7 +333,14 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Andor3::read_adcGainStr(Tango::Attribute &attr) entering... "<< endl;
 
-    //- force a read to adcGain
+	std::string    the_adc_gain_str;
+        m_hw->getAdcGainString(the_adc_gain_str);
+        try {
+          strcpy(*attr_adcGainStr_read, the_adc_gain_str.c_str());
+          attr.set_value(attr_adcGainStr_read);
+        }
+
+	/*    //- force a read to adcGain
     Tango::Attribute &adcGain = dev_attr->get_attr_by_name("adcGain");
     read_adcGain(adcGain);
 
@@ -361,6 +368,7 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
 
         attr.set_value(attr_adcGainStr_read);
     }
+	*/
     catch(Tango::DevFailed& df)
     {
         ERROR_STREAM << df << endl;
@@ -393,7 +401,13 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Andor3::read_adcRateStr(Tango::Attribute &attr) entering... "<< endl;
 
-    //- force a read to adcRate
+	std::string    the_adc_rate_str;
+	m_hw->getAdcRateString(the_adc_rate_str);
+	try {
+	  strcpy(*attr_adcRateStr_read, the_adc_rate_str.c_str());
+	  attr.set_value(attr_adcRateStr_read);
+	}
+	/*    //- force a read to adcRate
     Tango::Attribute &adcRate = dev_attr->get_attr_by_name("adcRate");
     read_adcRate(adcRate);
     try
@@ -412,6 +426,7 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
 
         attr.set_value(attr_adcRateStr_read);
     }
+	*/
     catch(Tango::DevFailed& df)
     {
         ERROR_STREAM << df << endl;
@@ -446,7 +461,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
 
     try
     {
-        m_camera->getAdcGain((lima::Andor3::Camera::A3_Gain&)*attr_adcGain_read);
+        m_hw->getAdcGain((lima::Andor3::Camera::A3_Gain&)*attr_adcGain_read);
         attr.set_value(attr_adcGain_read);
     }
     catch(Tango::DevFailed& df)
@@ -483,7 +498,7 @@ void Andor3::write_adcGain(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcGain_write);
-        m_camera->setAdcGain((lima::Andor3::Camera::A3_Gain&)attr_adcGain_write);
+        m_hw->setAdcGain((lima::Andor3::Camera::A3_Gain&)attr_adcGain_write);
     }
     catch(Tango::DevFailed& df)
     {
@@ -518,7 +533,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
 
     try
     {
-		m_camera->getAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)*attr_adcRate_read);
+		m_hw->getAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)*attr_adcRate_read);
         attr.set_value(attr_adcRate_read);
     }
     catch(Tango::DevFailed& df)
@@ -555,7 +570,7 @@ void Andor3::write_adcRate(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcRate_write);
-        m_camera->setAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)attr_adcRate_write);
+        m_hw->setAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)attr_adcRate_write);
     }
     catch(Tango::DevFailed& df)
     {
@@ -590,7 +605,7 @@ void Andor3::read_electronicShutterMode(Tango::Attribute &attr)
 
     try
     {
-		m_camera->getElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)*attr_electronicShutterMode_read);
+		m_hw->getElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)*attr_electronicShutterMode_read);
         attr.set_value(attr_electronicShutterMode_read);
     }
     catch(Tango::DevFailed& df)
@@ -627,7 +642,7 @@ void Andor3::write_electronicShutterMode(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_electronicShutterMode_write);
-        m_camera->setElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)attr_electronicShutterMode_write);
+        m_hw->setElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)attr_electronicShutterMode_write);
     }
     catch(Tango::DevFailed& df)
     {
