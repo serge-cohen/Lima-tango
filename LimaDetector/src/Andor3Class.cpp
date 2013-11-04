@@ -301,7 +301,7 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	att_list.push_back(electronic_shutter_mode);
 
 	//	Attribute : electronicShutterModeStr
-	electronicShutterModeStrAttrib	*electronic_shutter_mode_str = new electronicShutterModeAttribStr();
+	electronicShutterModeStrAttrib	*electronic_shutter_mode_str = new electronicShutterModeStrAttrib();
 	Tango::UserDefaultAttrProp	electronic_shutter_mode_str_prop;
 	electronic_shutter_mode_str_prop.set_label("Electronic Shutter Mode Str");
 	electronic_shutter_mode_str_prop.set_description("Electronic Shutter Mode Str: Electronic Shutter Mode in string format");
