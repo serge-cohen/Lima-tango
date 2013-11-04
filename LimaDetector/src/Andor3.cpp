@@ -341,36 +341,6 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
           strcpy(*attr_adcGainStr_read, the_adc_gain_str.c_str());
           attr.set_value(attr_adcGainStr_read);
         }
-
-	/*    //- force a read to adcGain
-    Tango::Attribute &adcGain = dev_attr->get_attr_by_name("adcGain");
-    read_adcGain(adcGain);
-
-    try
-    {
-		switch(*attr_adcGain_read)
-		{
-            case lima::Andor3::Camera::Gain1 : strcpy(*attr_adcGainStr_read, "Gain1");
-			break;
-            case lima::Andor3::Camera::Gain2 : strcpy(*attr_adcGainStr_read, "Gain2");
-			break;
-            case lima::Andor3::Camera::Gain3 : strcpy(*attr_adcGainStr_read, "Gain3");
-			break;
-            case lima::Andor3::Camera::Gain4 : strcpy(*attr_adcGainStr_read, "Gain4");
-			break;
-            case lima::Andor3::Camera::Gain1_Gain3 : strcpy(*attr_adcGainStr_read, "Gain1_Gain3");
-			break;
-            case lima::Andor3::Camera::Gain1_Gain4 : strcpy(*attr_adcGainStr_read, "Gain1_Gain4");
-			break;
-            case lima::Andor3::Camera::Gain2_Gain3 : strcpy(*attr_adcGainStr_read, "Gain2_Gain3");
-			break;
-            case lima::Andor3::Camera::Gain2_Gain4 : strcpy(*attr_adcGainStr_read, "Gain2_Gain4");
-			break;
-		}
-
-        attr.set_value(attr_adcGainStr_read);
-    }
-	*/
     catch(Tango::DevFailed& df)
     {
         ERROR_STREAM << df << endl;
@@ -409,26 +379,6 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
 	  strcpy(*attr_adcRateStr_read, the_adc_rate_str.c_str());
 	  attr.set_value(attr_adcRateStr_read);
 	}
-	/*    //- force a read to adcRate
-    Tango::Attribute &adcRate = dev_attr->get_attr_by_name("adcRate");
-    read_adcRate(adcRate);
-    try
-    {
-		switch(*attr_adcRate_read)
-		{
-			case lima::Andor3::Camera::MHz10 : strcpy(*attr_adcRateStr_read, "10 MHz");
-			break;
-            case lima::Andor3::Camera::MHz100 : strcpy(*attr_adcRateStr_read, "100 MHz");
-			break;
-            case lima::Andor3::Camera::MHz200 : strcpy(*attr_adcRateStr_read, "200 MHz");
-			break;
-            case lima::Andor3::Camera::MHz280 : strcpy(*attr_adcRateStr_read, "280 MHz");
-			break;
-		}
-
-        attr.set_value(attr_adcRateStr_read);
-    }
-	*/
     catch(Tango::DevFailed& df)
     {
         ERROR_STREAM << df << endl;
@@ -453,7 +403,7 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
 //
 // method : 		Andor3::read_electronicShutterModeStr
 //
-// description : 	Extract real attribute values for adcRateStr acquisition result.
+// description : 	Extract real attribute values for electronicShutterModeStr acquisition result.
 //
 //-----------------------------------------------------------------------------
 void Andor3::read_electronicShutterModeStr(Tango::Attribute &attr)

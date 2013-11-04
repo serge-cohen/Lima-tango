@@ -281,7 +281,7 @@ public :
  */
 	virtual bool is_electronicShutterMode_allowed(Tango::AttReqType type);
 /**
- *	Read/Write allowed for electronicShutterMode attribute.
+ *	Read/Write allowed for electronicShutterModeStr attribute.
  */
 	virtual bool is_electronicShutterModeStr_allowed(Tango::AttReqType type);
 /**

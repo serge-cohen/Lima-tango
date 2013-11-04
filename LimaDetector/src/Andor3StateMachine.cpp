@@ -229,7 +229,7 @@ bool Andor3::is_adcRateStr_allowed(Tango::AttReqType type)
   //
   // method : 		Andor3::is_electronicShutterModeStr_allowed
   //
-  // description : 	Read/Write allowed for adcRateStr attribute.
+  // description : 	Read/Write allowed for electronicShutterModeStr attribute.
   //
   //-----------------------------------------------------------------------------
   bool Andor3::is_electronicShutterModeStr_allowed(Tango::AttReqType type)
