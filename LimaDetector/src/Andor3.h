@@ -106,6 +106,7 @@ public :
 		Tango::DevString	*attr_adcRateStr_read;
 		Tango::DevUShort	*attr_electronicShutterMode_read;
 		Tango::DevUShort	attr_electronicShutterMode_write;
+		Tango::DevString	*attr_electronicShutterModeStr_read;
 		Tango::DevDouble	*attr_temperatureSP_read;
 		Tango::DevDouble	attr_temperatureSP_write;
 		Tango::DevDouble	*attr_temperature_read;
@@ -232,6 +233,10 @@ public :
  */
 	virtual void write_electronicShutterMode(Tango::WAttribute &attr);
 /**
+ *	Extract real attribute values for electronicShutterModeStr acquisition result.
+ */
+	virtual void read_electronicShutterModeStr(Tango::Attribute &attr);
+/**
  *	Extract real attribute values for temperatureSP acquisition result.
  */
 	virtual void read_temperatureSP(Tango::Attribute &attr);
@@ -333,7 +338,7 @@ protected :
 	//LIMA objects
 	lima::Andor3::Interface*		m_hw;
 	lima::CtControl*				m_ct;	
-    lima::Andor3::Camera*           m_camera;
+	lima::Andor3::Camera*           m_camera;
 };
 
 }	// namespace_ns
