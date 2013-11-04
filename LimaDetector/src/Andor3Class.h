@@ -97,7 +97,20 @@ public:
 	{return (static_cast<Andor3 *>(dev))->is_temperatureSP_allowed(ty);}
 };
 
-class electronicShutterModeAttrib: public Tango::Attr
+  class electronicShutterModeStrAttrib: public Tango::Attr
+  {
+  public:
+    electronicShutterModeStrAttrib():Attr("electronicShutterModeStr", Tango::DEV_STRING, Tango::READ) {};
+    ~electronicShutterModeStrAttrib() {};
+    
+    virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+    {(static_cast<Andor3 *>(dev))->read_electronicShutterModeStr(att);}
+    virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+    {return (static_cast<Andor3 *>(dev))->is_electronicShutterModeStr_allowed(ty);}
+  };
+  
+
+  class electronicShutterModeAttrib: public Tango::Attr
 {
 public:
 	electronicShutterModeAttrib():Attr("electronicShutterMode", Tango::DEV_USHORT, Tango::READ_WRITE) {};

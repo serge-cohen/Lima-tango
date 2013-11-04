@@ -225,6 +225,25 @@ bool Andor3::is_adcRateStr_allowed(Tango::AttReqType type)
 	}
 	return true;
 }
+  //+----------------------------------------------------------------------------
+  //
+  // method : 		Andor3::is_electronicShutterModeStr_allowed
+  //
+  // description : 	Read/Write allowed for adcRateStr attribute.
+  //
+  //-----------------------------------------------------------------------------
+  bool Andor3::is_electronicShutterModeStr_allowed(Tango::AttReqType type)
+  {
+    if (get_state() == Tango::INIT	||
+        get_state() == Tango::FAULT)
+    {
+      //	End of Generated Code
+      
+      //	Re-Start of Generated Code
+      return false;
+    }
+    return true;
+  }
 
 //=================================================
 //		Commands Allowed Methods
