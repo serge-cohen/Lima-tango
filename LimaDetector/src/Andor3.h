@@ -106,13 +106,36 @@ public :
 		Tango::DevString	*attr_adcRateStr_read;
 		Tango::DevUShort	*attr_electronicShutterMode_read;
 		Tango::DevUShort	attr_electronicShutterMode_write;
-		Tango::DevString	*attr_electronicShutterModeStr_read;
 		Tango::DevDouble	*attr_temperatureSP_read;
 		Tango::DevDouble	attr_temperatureSP_write;
 		Tango::DevDouble	*attr_temperature_read;
 		Tango::DevBoolean	*attr_cooler_read;
 		Tango::DevBoolean	attr_cooler_write;
 		Tango::DevString	*attr_coolingStatus_read;
+		Tango::DevString	*attr_electronicShutterModeStr_read;
+		Tango::DevBoolean	*attr_bufferOverflow_read;
+		Tango::DevBoolean	attr_bufferOverflow_write;
+		Tango::DevLong	*attr_fanSpeed_read;
+		Tango::DevLong	attr_fanSpeed_write;
+		Tango::DevBoolean	*attr_overlap_read;
+		Tango::DevBoolean	attr_overlap_write;
+		Tango::DevBoolean	*attr_spuriousNoisFilter_read;
+		Tango::DevBoolean	attr_spuriousNoisFilter_write;
+		Tango::DevBoolean	*attr_syncTrigerring_read;
+		Tango::DevBoolean	attr_syncTrigerring_write;
+		Tango::DevLong	*attr_simpleGainControl_read;
+		Tango::DevLong	attr_simpleGainControl_write;
+		Tango::DevString	*attr_simpleGainControlStr_read;
+		Tango::DevDouble	*attr_bytesPerPixel_read;
+		Tango::DevString	*attr_firmwareVersion_read;
+		Tango::DevDouble	*attr_frameRate_read;
+		Tango::DevDouble	*attr_frameRateMax_read;
+		Tango::DevDouble	*attr_frameRateMin_read;
+		Tango::DevBoolean	*attr_fullRoiControl_read;
+		Tango::DevLong	*attr_imageSize_read;
+		Tango::DevDouble	*attr_maxFrameRateTransfer_read;
+		Tango::DevDouble	*attr_readoutTime_read;
+		Tango::DevString	*attr_serialNumber_read;
 //@}
 
 /**
@@ -233,10 +256,6 @@ public :
  */
 	virtual void write_electronicShutterMode(Tango::WAttribute &attr);
 /**
- *	Extract real attribute values for electronicShutterModeStr acquisition result.
- */
-	virtual void read_electronicShutterModeStr(Tango::Attribute &attr);
-/**
  *	Extract real attribute values for temperatureSP acquisition result.
  */
 	virtual void read_temperatureSP(Tango::Attribute &attr);
@@ -261,6 +280,102 @@ public :
  */
 	virtual void read_coolingStatus(Tango::Attribute &attr);
 /**
+ *	Extract real attribute values for electronicShutterModeStr acquisition result.
+ */
+	virtual void read_electronicShutterModeStr(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for bufferOverflow acquisition result.
+ */
+	virtual void read_bufferOverflow(Tango::Attribute &attr);
+/**
+ *	Write bufferOverflow attribute values to hardware.
+ */
+	virtual void write_bufferOverflow(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for fanSpeed acquisition result.
+ */
+	virtual void read_fanSpeed(Tango::Attribute &attr);
+/**
+ *	Write fanSpeed attribute values to hardware.
+ */
+	virtual void write_fanSpeed(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for overlap acquisition result.
+ */
+	virtual void read_overlap(Tango::Attribute &attr);
+/**
+ *	Write overlap attribute values to hardware.
+ */
+	virtual void write_overlap(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for spuriousNoisFilter acquisition result.
+ */
+	virtual void read_spuriousNoisFilter(Tango::Attribute &attr);
+/**
+ *	Write spuriousNoisFilter attribute values to hardware.
+ */
+	virtual void write_spuriousNoisFilter(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for syncTrigerring acquisition result.
+ */
+	virtual void read_syncTrigerring(Tango::Attribute &attr);
+/**
+ *	Write syncTrigerring attribute values to hardware.
+ */
+	virtual void write_syncTrigerring(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for simpleGainControl acquisition result.
+ */
+	virtual void read_simpleGainControl(Tango::Attribute &attr);
+/**
+ *	Write simpleGainControl attribute values to hardware.
+ */
+	virtual void write_simpleGainControl(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for simpleGainControlStr acquisition result.
+ */
+	virtual void read_simpleGainControlStr(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for bytesPerPixel acquisition result.
+ */
+	virtual void read_bytesPerPixel(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for firmwareVersion acquisition result.
+ */
+	virtual void read_firmwareVersion(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for frameRate acquisition result.
+ */
+	virtual void read_frameRate(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for frameRateMax acquisition result.
+ */
+	virtual void read_frameRateMax(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for frameRateMin acquisition result.
+ */
+	virtual void read_frameRateMin(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for fullRoiControl acquisition result.
+ */
+	virtual void read_fullRoiControl(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for imageSize acquisition result.
+ */
+	virtual void read_imageSize(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for maxFrameRateTransfer acquisition result.
+ */
+	virtual void read_maxFrameRateTransfer(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for readoutTime acquisition result.
+ */
+	virtual void read_readoutTime(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for serialNumber acquisition result.
+ */
+	virtual void read_serialNumber(Tango::Attribute &attr);
+/**
  *	Read/Write allowed for adcGain attribute.
  */
 	virtual bool is_adcGain_allowed(Tango::AttReqType type);
@@ -281,10 +396,6 @@ public :
  */
 	virtual bool is_electronicShutterMode_allowed(Tango::AttReqType type);
 /**
- *	Read/Write allowed for electronicShutterModeStr attribute.
- */
-	virtual bool is_electronicShutterModeStr_allowed(Tango::AttReqType type);
-/**
  *	Read/Write allowed for temperatureSP attribute.
  */
 	virtual bool is_temperatureSP_allowed(Tango::AttReqType type);
@@ -300,6 +411,78 @@ public :
  *	Read/Write allowed for coolingStatus attribute.
  */
 	virtual bool is_coolingStatus_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for electronicShutterModeStr attribute.
+ */
+	virtual bool is_electronicShutterModeStr_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for bufferOverflow attribute.
+ */
+	virtual bool is_bufferOverflow_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for fanSpeed attribute.
+ */
+	virtual bool is_fanSpeed_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for overlap attribute.
+ */
+	virtual bool is_overlap_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for spuriousNoisFilter attribute.
+ */
+	virtual bool is_spuriousNoisFilter_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for syncTrigerring attribute.
+ */
+	virtual bool is_syncTrigerring_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for simpleGainControl attribute.
+ */
+	virtual bool is_simpleGainControl_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for simpleGainControlStr attribute.
+ */
+	virtual bool is_simpleGainControlStr_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for bytesPerPixel attribute.
+ */
+	virtual bool is_bytesPerPixel_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for firmwareVersion attribute.
+ */
+	virtual bool is_firmwareVersion_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for frameRate attribute.
+ */
+	virtual bool is_frameRate_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for frameRateMax attribute.
+ */
+	virtual bool is_frameRateMax_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for frameRateMin attribute.
+ */
+	virtual bool is_frameRateMin_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for fullRoiControl attribute.
+ */
+	virtual bool is_fullRoiControl_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for imageSize attribute.
+ */
+	virtual bool is_imageSize_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for maxFrameRateTransfer attribute.
+ */
+	virtual bool is_maxFrameRateTransfer_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for readoutTime attribute.
+ */
+	virtual bool is_readoutTime_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for serialNumber attribute.
+ */
+	virtual bool is_serialNumber_allowed(Tango::AttReqType type);
 /**
  * This command gets the device state (stored in its <i>device_state</i> data member) and returns it to the caller.
  *	@return	State Code
@@ -342,7 +525,7 @@ protected :
 	//LIMA objects
 	lima::Andor3::Interface*		m_hw;
 	lima::CtControl*				m_ct;	
-	lima::Andor3::Camera*           m_camera;
+    lima::Andor3::Camera*           m_camera;
 };
 
 }	// namespace_ns

@@ -300,19 +300,11 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	electronic_shutter_mode->set_memorized_init(true);
 	att_list.push_back(electronic_shutter_mode);
 
-	//	Attribute : electronicShutterModeStr
-	electronicShutterModeStrAttrib	*electronic_shutter_mode_str = new electronicShutterModeStrAttrib();
-	Tango::UserDefaultAttrProp	electronic_shutter_mode_str_prop;
-	electronic_shutter_mode_str_prop.set_label("Electronic Shutter Mode Str");
-	electronic_shutter_mode_str_prop.set_description("Electronic Shutter Mode Str: Electronic Shutter Mode in string format");
-	electronic_shutter_mode_str->set_default_properties(electronic_shutter_mode_str_prop);
-	att_list.push_back(electronic_shutter_mode_str);
-
 	//	Attribute : temperatureSP
 	temperatureSPAttrib	*temperature_sp = new temperatureSPAttrib();
 	Tango::UserDefaultAttrProp	temperature_sp_prop;
 	temperature_sp_prop.set_label("Temperature SP");
-	temperature_sp_prop.set_unit("°C");
+	temperature_sp_prop.set_unit("?C");
 	temperature_sp_prop.set_description("Temperature SP");
 	temperature_sp->set_default_properties(temperature_sp_prop);
 	att_list.push_back(temperature_sp);
@@ -321,7 +313,7 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	temperatureAttrib	*temperature = new temperatureAttrib();
 	Tango::UserDefaultAttrProp	temperature_prop;
 	temperature_prop.set_label("Temperature");
-	temperature_prop.set_unit("°C");
+	temperature_prop.set_unit("?C");
 	temperature_prop.set_description("Temperature");
 	temperature->set_default_properties(temperature_prop);
 	att_list.push_back(temperature);
@@ -343,6 +335,90 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	cooling_status_prop.set_label("Cooling Status");
 	cooling_status->set_default_properties(cooling_status_prop);
 	att_list.push_back(cooling_status);
+
+	//	Attribute : electronicShutterModeStr
+	electronicShutterModeStrAttrib	*electronic_shutter_mode_str = new electronicShutterModeStrAttrib();
+	att_list.push_back(electronic_shutter_mode_str);
+
+	//	Attribute : bufferOverflow
+	bufferOverflowAttrib	*buffer_overflow = new bufferOverflowAttrib();
+	buffer_overflow->set_disp_level(Tango::EXPERT);
+	att_list.push_back(buffer_overflow);
+
+	//	Attribute : fanSpeed
+	fanSpeedAttrib	*fan_speed = new fanSpeedAttrib();
+	fan_speed->set_disp_level(Tango::EXPERT);
+	att_list.push_back(fan_speed);
+
+	//	Attribute : overlap
+	overlapAttrib	*overlap = new overlapAttrib();
+	overlap->set_disp_level(Tango::EXPERT);
+	att_list.push_back(overlap);
+
+	//	Attribute : spuriousNoisFilter
+	spuriousNoisFilterAttrib	*spurious_nois_filter = new spuriousNoisFilterAttrib();
+	spurious_nois_filter->set_disp_level(Tango::EXPERT);
+	spurious_nois_filter->set_memorized();
+	spurious_nois_filter->set_memorized_init(true);
+	att_list.push_back(spurious_nois_filter);
+
+	//	Attribute : syncTrigerring
+	syncTrigerringAttrib	*sync_trigerring = new syncTrigerringAttrib();
+	sync_trigerring->set_disp_level(Tango::EXPERT);
+	att_list.push_back(sync_trigerring);
+
+	//	Attribute : simpleGainControl
+	simpleGainControlAttrib	*simple_gain_control = new simpleGainControlAttrib();
+	att_list.push_back(simple_gain_control);
+
+	//	Attribute : simpleGainControlStr
+	simpleGainControlStrAttrib	*simple_gain_control_str = new simpleGainControlStrAttrib();
+	att_list.push_back(simple_gain_control_str);
+
+	//	Attribute : bytesPerPixel
+	bytesPerPixelAttrib	*bytes_per_pixel = new bytesPerPixelAttrib();
+	bytes_per_pixel->set_disp_level(Tango::EXPERT);
+	att_list.push_back(bytes_per_pixel);
+
+	//	Attribute : firmwareVersion
+	firmwareVersionAttrib	*firmware_version = new firmwareVersionAttrib();
+	firmware_version->set_disp_level(Tango::EXPERT);
+	att_list.push_back(firmware_version);
+
+	//	Attribute : frameRate
+	frameRateAttrib	*frame_rate = new frameRateAttrib();
+	att_list.push_back(frame_rate);
+
+	//	Attribute : frameRateMax
+	frameRateMaxAttrib	*frame_rate_max = new frameRateMaxAttrib();
+	att_list.push_back(frame_rate_max);
+
+	//	Attribute : frameRateMin
+	frameRateMinAttrib	*frame_rate_min = new frameRateMinAttrib();
+	att_list.push_back(frame_rate_min);
+
+	//	Attribute : fullRoiControl
+	fullRoiControlAttrib	*full_roi_control = new fullRoiControlAttrib();
+	full_roi_control->set_disp_level(Tango::EXPERT);
+	att_list.push_back(full_roi_control);
+
+	//	Attribute : imageSize
+	imageSizeAttrib	*image_size = new imageSizeAttrib();
+	att_list.push_back(image_size);
+
+	//	Attribute : maxFrameRateTransfer
+	maxFrameRateTransferAttrib	*max_frame_rate_transfer = new maxFrameRateTransferAttrib();
+	att_list.push_back(max_frame_rate_transfer);
+
+	//	Attribute : readoutTime
+	readoutTimeAttrib	*readout_time = new readoutTimeAttrib();
+	readout_time->set_disp_level(Tango::EXPERT);
+	att_list.push_back(readout_time);
+
+	//	Attribute : serialNumber
+	serialNumberAttrib	*serial_number = new serialNumberAttrib();
+	serial_number->set_disp_level(Tango::EXPERT);
+	att_list.push_back(serial_number);
 
 	//	End of Automatic code generation
 	//-------------------------------------------------------------

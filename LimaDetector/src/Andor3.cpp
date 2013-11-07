@@ -56,13 +56,17 @@ static const char *RcsId = "$Id:  $";
 #include <PogoHelper.h>
 #endif
 
-#include <Andor3.h>
+#include "Andor3.h"
 #include <Andor3Class.h>
+
+#include "Andor3Camera.h"
 
 #ifndef WIN32
 #include "tango.h"
 #include <PogoHelper.h>
 #endif
+
+#error toto
 
 namespace Andor3_ns
 {
@@ -111,7 +115,6 @@ void Andor3::delete_device()
     DELETE_SCALAR_ATTRIBUTE(attr_adcRate_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_adcRateStr_read);
     DELETE_SCALAR_ATTRIBUTE(attr_electronicShutterMode_read);
-    DELETE_SCALAR_ATTRIBUTE(attr_electronicShutterModeStr_read);
     DELETE_SCALAR_ATTRIBUTE(attr_temperatureSP_read);
     DELETE_SCALAR_ATTRIBUTE(attr_temperature_read);
     DELETE_SCALAR_ATTRIBUTE(attr_cooler_read);
@@ -140,12 +143,26 @@ void Andor3::init_device()
 	//--------------------------------------------
 	get_device_property();
 
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_fanSpeed_read);
+  
+  CREATE_SCALAR_ATTRIBUTE(attr_overlap_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_simpleGainControl_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
+  CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
     CREATE_SCALAR_ATTRIBUTE(attr_adcGain_read);
     CREATE_DEVSTRING_ATTRIBUTE(attr_adcGainStr_read,MAX_STRING_LENGTH);
     CREATE_SCALAR_ATTRIBUTE(attr_adcRate_read);
     CREATE_DEVSTRING_ATTRIBUTE(attr_adcRateStr_read,MAX_STRING_LENGTH);
     CREATE_SCALAR_ATTRIBUTE(attr_electronicShutterMode_read);
-    CREATE_DEVSTRING_ATTRIBUTE(attr_electronicShutterModeStr_read, MAX_STRING_LENGTH);
     CREATE_SCALAR_ATTRIBUTE(attr_temperatureSP_read);
     CREATE_SCALAR_ATTRIBUTE(attr_temperature_read);
     CREATE_SCALAR_ATTRIBUTE(attr_cooler_read);
@@ -321,9 +338,888 @@ void Andor3::always_executed_hook()
 //-----------------------------------------------------------------------------
 void Andor3::read_attr_hardware(vector<long> &attr_list)
 {
-	DEBUG_STREAM << "Andor3::read_attr_hardware(vector<long> &attr_list) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::read_attr_hardware(vector<long> &attr_list) entering... "<< endl;
 	//	Add your own code here
+
 }
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_bytesPerPixel
+// 
+// description : 	Extract real attribute values for bytesPerPixel acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_bytesPerPixel(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_bytesPerPixel(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_bpp = 0;
+		m_camera->getBytesPerPixe(the_bpp);
+    *attr_bytesPerPixel_read = the_bpp;
+    attr.set_value(attr_bytesPerPixel_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_firmwareVersion
+// 
+// description : 	Extract real attribute values for firmwareVersion acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_firmwareVersion(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_firmwareVersion(Tango::Attribute &attr) entering... "<< endl;
+  std::string    the_value;
+  m_camera->getFirmwareVersion(the_value);
+  try {
+    strcpy(*attr_firmwareVersion_read, the_value.c_str());
+    attr.set_value(attr_firmwareVersion_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRate
+// 
+// description : 	Extract real attribute values for frameRate acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRate(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_frameRate(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_value = 0;
+		m_camera->getFrameRate(the_value);
+    *attr_frameRate_read = the_value;
+    attr.set_value(attr_frameRate_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRateMax
+// 
+// description : 	Extract real attribute values for frameRateMax acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRateMax(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_frameRateMax(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_min = 0;
+    double the_max = 0;
+		m_camera->getFrameRateRange(the_min, the_max);
+    *attr_frameRateMax_read = the_max;
+    attr.set_value(attr_frameRateMax_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRateMin
+// 
+// description : 	Extract real attribute values for frameRateMin acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRateMin(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_frameRateMin(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_min = 0;
+    double the_max = 0;
+		m_camera->getFrameRateRange(the_min, the_max);
+    *attr_frameRateMin_read = the_min;
+    attr.set_value(attr_frameRateMin_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_fullRoiControl
+// 
+// description : 	Extract real attribute values for fullRoiControl acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_fullRoiControl(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_fullRoiControl(Tango::Attribute &attr) entering... "<< endl;
+  bool the_value = false;
+  m_camera->getFullRoiControl(the_value);
+  try
+  {
+    *attr_fullRoiControl_read = the_value;
+    attr.set_value(attr_fullRoiControl_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_imageSize
+// 
+// description : 	Extract real attribute values for imageSize acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_imageSize(Tango::Attribute &attr)
+{
+  //DEBUG_STREAM << "Andor3::read_imageSize(Tango::Attribute &attr) entering... "<< endl;
+  int the_value;
+  m_camera->getImageSize(the_value);
+  try
+  {
+    *attr_imageSize_read = the_value;
+    attr.set_value(attr_imageSize_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_maxFrameRateTransfer
+// 
+// description : 	Extract real attribute values for maxFrameRateTransfer acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_maxFrameRateTransfer(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_maxFrameRateTransfer(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_value = 0;
+		m_camera->getMaxFrameRateTransfer(the_value);
+    *attr_maxFrameRateTransfer_read = the_value;
+    attr.set_value(attr_maxFrameRateTransfer_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_readoutTime
+// 
+// description : 	Extract real attribute values for readoutTime acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_readoutTime(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_readoutTime(Tango::Attribute &attr) entering... "<< endl;
+  try
+  {
+    double the_value = 0;
+		m_camera->getReadoutTime(the_value);
+    *attr_readoutTime_read = the_value;
+    attr.set_value(attr_readoutTime_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_serialNumber
+// 
+// description : 	Extract real attribute values for serialNumber acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_serialNumber(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_serialNumber(Tango::Attribute &attr) entering... "<< endl;
+  std::string    the_value;
+  m_camera->getSerialNumber(the_value);
+  try {
+    strcpy(*attr_serialNumber_read, the_value.c_str());
+    attr.set_value(attr_serialNumber_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_bufferOverflow
+// 
+// description : 	Extract real attribute values for bufferOverflow acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_bufferOverflow(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_bufferOverflow(Tango::Attribute &attr) entering... "<< endl;
+  bool the_value = false;
+  m_camera->getBufferOverflow(the_value);
+  try
+  {
+    *attr_bufferOverflow_read = the_value;
+    attr.set_value(attr_bufferOverflow_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_bufferOverflow
+// 
+// description : 	Write bufferOverflow attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_bufferOverflow(Tango::WAttribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::write_bufferOverflow(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_bufferOverflow_write);
+    m_camera->setBufferOverflow(attr_bufferOverflow_write);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_fanSpeed
+// 
+// description : 	Extract real attribute values for fanSpeed acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_fanSpeed(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_fanSpeed(Tango::Attribute &attr) entering... "<< endl;
+    lima::Andor3::Camera::A3_FanSpeed		the_value;
+  m_camera->getFanSpeed(the_value);
+  try {
+    *attr_fanSpeed_read = static_cast<int>(the_value);
+    attr.set_value(attr_fanSpeed_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_fanSpeed
+// 
+// description : 	Write fanSpeed attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_fanSpeed(Tango::WAttribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::write_fanSpeed(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_fanSpeed_write);
+    lima::Andor3::Camera::A3_FanSpeed		the_value = static_cast<lima::Andor3::Camera::A3_FanSpeed>(attr_fanSpeed_write);
+    m_camera->setFanSpeed(the_value);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_overlap
+// 
+// description : 	Extract real attribute values for overlap acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_overlap(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_overlap(Tango::Attribute &attr) entering... "<< endl;
+  bool the_value = false;
+  m_camera->getOverlap(the_value);
+  try
+  {
+    *attr_overlap_read = the_value;
+    attr.set_value(attr_overlap_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_overlap
+// 
+// description : 	Write overlap attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_overlap(Tango::WAttribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::write_overlap(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_overlap_write);
+    m_camera->setOverlap(attr_overlap_write);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_spuriousNoisFilter
+// 
+// description : 	Extract real attribute values for spuriousNoisFilter acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_spuriousNoisFilter(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_spuriousNoisFilter(Tango::Attribute &attr) entering... "<< endl;
+  bool the_value = false;
+  m_camera->getSpuriousNoiseFilter(the_value);
+  try
+  {
+    *attr_spuriousNoisFilter_read = the_value;
+    attr.set_value(attr_spuriousNoisFilter_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_spuriousNoisFilter
+// 
+// description : 	Write spuriousNoisFilter attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_spuriousNoisFilter_write);
+    m_camera->setSpuriousNoiseFilter(attr_spuriousNoisFilter_write);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_syncTrigerring
+// 
+// description : 	Extract real attribute values for syncTrigerring acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_syncTrigerring(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_syncTrigerring(Tango::Attribute &attr) entering... "<< endl;
+  bool the_value = false;
+  m_camera->getSyncTriggering(the_value);
+  try
+  {
+    *attr_syncTrigerring_read = the_value;
+    attr.set_value(attr_syncTrigerring_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_syncTrigerring
+// 
+// description : 	Write syncTrigerring attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_syncTrigerring(Tango::WAttribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::write_syncTrigerring(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_syncTrigerring_write);
+    m_camera->setSyncTriggering(attr_syncTrigerring_write);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_simpleGainControl
+// 
+// description : 	Extract real attribute values for simpleGainControl acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_simpleGainControl(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_simpleGainControl(Tango::Attribute &attr) entering... "<< endl;
+
+  lima::Andor3::Camera::A3_SimpleGain		the_value;
+  m_camera->getSimpleGainString(the_int_value);
+  try {
+    *attr_simpleGainControl_read = static_cast<int>(the_value);
+    attr.set_value(attr_simpleGainControl_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_simpleGainControl
+// 
+// description : 	Write simpleGainControl attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_simpleGainControl(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_simpleGainControl(Tango::WAttribute &attr) entering... "<< endl;
+  try
+  {
+    attr.get_write_value(attr_simpleGainControl_write);
+    lima::Andor3::Camera::A3_SimpleGain the_value = static_cast<lima::Andor3::Camera::A3_SimpleGain>(attr_simpleGainControl_write);
+    m_camera->setSimpleGain(the_value);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_simpleGainControlStr
+// 
+// description : 	Extract real attribute values for simpleGainControlStr acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_simpleGainControlStr(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_simpleGainControlStr(Tango::Attribute &attr) entering... "<< endl;
+  std::string    the_value;
+  m_camera->getSimpleGainString(the_value);
+  try {
+    strcpy(*attr_simpleGainControl_read, the_value.c_str());
+    attr.set_value(attr_simpleGainControl_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_electronicShutterModeStr
+// 
+// description : 	Extract real attribute values for electronicShutterModeStr acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_electronicShutterModeStr(Tango::Attribute &attr)
+{
+  //	DEBUG_STREAM << "Andor3::read_electronicShutterModeStr(Tango::Attribute &attr) entering... "<< endl;
+  std::string    the_value;
+  m_hw->getElectronicShutterModeString(the_value);
+  try {
+    strcpy(*attr_electronicShutterModeStr_read, the_value.c_str());
+    attr.set_value(attr_electronicShutterModeStr_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+
+}
+
 //+----------------------------------------------------------------------------
 //
 // method : 		Andor3::read_adcGainStr
@@ -333,33 +1229,31 @@ void Andor3::read_attr_hardware(vector<long> &attr_list)
 //-----------------------------------------------------------------------------
 void Andor3::read_adcGainStr(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "Andor3::read_adcGainStr(Tango::Attribute &attr) entering... "<< endl;
-
-	std::string    the_adc_gain_str;
-        m_hw->getAdcGainString(the_adc_gain_str);
-        try {
-          strcpy(*attr_adcGainStr_read, the_adc_gain_str.c_str());
-          attr.set_value(attr_adcGainStr_read);
-        }
-    catch(Tango::DevFailed& df)
-    {
-        ERROR_STREAM << df << endl;
-        //- rethrow exception
-        Tango::Except::re_throw_exception(df,
-                    static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                    static_cast<const char*> (string(df.errors[0].desc).c_str()),
-                    static_cast<const char*> ("Andor3::read_adcGainStr"));
-    }
-    catch(Exception& e)
-    {
-        ERROR_STREAM << e.getErrMsg() << endl;
-        //- throw exception
-        Tango::Except::throw_exception(
-                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                     static_cast<const char*> (e.getErrMsg().c_str()),
-                     static_cast<const char*> ("Andor3::read_adcGainStr"));
-    }
-
+  //	DEBUG_STREAM << "Andor3::read_adcGainStr(Tango::Attribute &attr) entering... "<< endl;
+  std::string    the_adc_gain_str;
+  m_hw->getAdcGainString(the_adc_gain_str);
+  try {
+    strcpy(*attr_adcGainStr_read, the_adc_gain_str.c_str());
+    attr.set_value(attr_adcGainStr_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
 }
 
 //+----------------------------------------------------------------------------
@@ -371,71 +1265,34 @@ void Andor3::read_adcGainStr(Tango::Attribute &attr)
 //-----------------------------------------------------------------------------
 void Andor3::read_adcRateStr(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "Andor3::read_adcRateStr(Tango::Attribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::read_adcRateStr(Tango::Attribute &attr) entering... "<< endl;
 
-	std::string    the_adc_rate_str;
-	m_hw->getAdcRateString(the_adc_rate_str);
-	try {
-	  strcpy(*attr_adcRateStr_read, the_adc_rate_str.c_str());
-	  attr.set_value(attr_adcRateStr_read);
-	}
-    catch(Tango::DevFailed& df)
-    {
-        ERROR_STREAM << df << endl;
-        //- rethrow exception
-        Tango::Except::re_throw_exception(df,
-                    static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                    static_cast<const char*> (string(df.errors[0].desc).c_str()),
-                    static_cast<const char*> ("Andor3::read_adcRateStr"));
-    }
-    catch(Exception& e)
-    {
-        ERROR_STREAM << e.getErrMsg() << endl;
-        //- throw exception
-        Tango::Except::throw_exception(
-                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                     static_cast<const char*> (e.getErrMsg().c_str()),
-                     static_cast<const char*> ("Andor3::read_adcRateStr"));
-    }
+  std::string    the_adc_rate_str;
+  m_hw->getAdcRateString(the_adc_rate_str);
+  try {
+    strcpy(*attr_adcRateStr_read, the_adc_rate_str.c_str());
+    attr.set_value(attr_adcRateStr_read);
+  }
+  catch(Tango::DevFailed& df)
+  {
+    ERROR_STREAM << df << endl;
+    //- rethrow exception
+    Tango::Except::re_throw_exception(df,
+                                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                      static_cast<const char*> (string(df.errors[0].desc).c_str()),
+                                      static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
+  catch(Exception& e)
+  {
+    ERROR_STREAM << e.getErrMsg() << endl;
+    //- throw exception
+    Tango::Except::throw_exception(
+                                   static_cast<const char*> ("TANGO_DEVICE_ERROR"),
+                                   static_cast<const char*> (e.getErrMsg().c_str()),
+                                   static_cast<const char*> (__PRETTY_FUNCTION__));
+  }
 }
-
-//+----------------------------------------------------------------------------
-//
-// method : 		Andor3::read_electronicShutterModeStr
-//
-// description : 	Extract real attribute values for electronicShutterModeStr acquisition result.
-//
-//-----------------------------------------------------------------------------
-void Andor3::read_electronicShutterModeStr(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "Andor3::read_electronicShutterModeStr(Tango::Attribute &attr) entering... "<< endl;
-
-	std::string    the_electronic_shutter_str;
-	m_hw->getElectronicShutterModeString(the_electronic_shutter_str);
-	try {
-	  strcpy(*attr_electronicShutterModeStr_read, the_electronic_shutter_str.c_str());
-	  attr.set_value(attr_electronicShutterModeStr_read);
-	}
-    catch(Tango::DevFailed& df)
-    {
-        ERROR_STREAM << df << endl;
-        //- rethrow exception
-        Tango::Except::re_throw_exception(df,
-                    static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                    static_cast<const char*> (string(df.errors[0].desc).c_str()),
-                    static_cast<const char*> ("Andor3::read_electronicShutterModeStr"));
-    }
-    catch(Exception& e)
-    {
-        ERROR_STREAM << e.getErrMsg() << endl;
-        //- throw exception
-        Tango::Except::throw_exception(
-                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
-                     static_cast<const char*> (e.getErrMsg().c_str()),
-                     static_cast<const char*> ("Andor3::read_electronicShutterModeStr"));
-    }
-}
-
+  
 
 //+----------------------------------------------------------------------------
 //
@@ -450,7 +1307,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
 
     try
     {
-        m_hw->getAdcGain((lima::Andor3::Camera::A3_Gain&)*attr_adcGain_read);
+        m_camera->getAdcGain((lima::Andor3::Camera::A3_Gain&)*attr_adcGain_read);
         attr.set_value(attr_adcGain_read);
     }
     catch(Tango::DevFailed& df)
@@ -460,7 +1317,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
         Tango::Except::re_throw_exception(df,
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
-                    static_cast<const char*> ("Andor3::read_adcGain"));
+                    static_cast<const char*> (__PRETTY_FUNCTION__));
     }
     catch(Exception& e)
     {
@@ -469,7 +1326,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
         Tango::Except::throw_exception(
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
-                     static_cast<const char*> ("Andor3::read_adcGain"));
+                     static_cast<const char*> (__PRETTY_FUNCTION__));
     }
 }
 
@@ -487,7 +1344,7 @@ void Andor3::write_adcGain(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcGain_write);
-        m_hw->setAdcGain((lima::Andor3::Camera::A3_Gain&)attr_adcGain_write);
+        m_camera->setAdcGain((lima::Andor3::Camera::A3_Gain&)attr_adcGain_write);
     }
     catch(Tango::DevFailed& df)
     {
@@ -522,7 +1379,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
 
     try
     {
-		m_hw->getAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)*attr_adcRate_read);
+		m_camera->getAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)*attr_adcRate_read);
         attr.set_value(attr_adcRate_read);
     }
     catch(Tango::DevFailed& df)
@@ -532,7 +1389,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
         Tango::Except::re_throw_exception(df,
                     static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                     static_cast<const char*> (string(df.errors[0].desc).c_str()),
-                    static_cast<const char*> ("Andor3::read_adcRate"));
+                    static_cast<const char*> (__PRETTY_FUNCTION__));
     }
     catch(Exception& e)
     {
@@ -541,7 +1398,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
         Tango::Except::throw_exception(
                      static_cast<const char*> ("TANGO_DEVICE_ERROR"),
                      static_cast<const char*> (e.getErrMsg().c_str()),
-                     static_cast<const char*> ("Andor3::read_adcRate"));
+                     static_cast<const char*> (__PRETTY_FUNCTION__));
     }
 }
 
@@ -559,7 +1416,7 @@ void Andor3::write_adcRate(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcRate_write);
-        m_hw->setAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)attr_adcRate_write);
+        m_camera->setAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)attr_adcRate_write);
     }
     catch(Tango::DevFailed& df)
     {
@@ -590,11 +1447,11 @@ void Andor3::write_adcRate(Tango::WAttribute &attr)
 //-----------------------------------------------------------------------------
 void Andor3::read_electronicShutterMode(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "Andor3::read_electronicShutterMode(Tango::Attribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::read_electronicShutterMode(Tango::Attribute &attr) entering... "<< endl;
 
     try
     {
-		m_hw->getElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)*attr_electronicShutterMode_read);
+		m_camera->getElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)*attr_electronicShutterMode_read);
         attr.set_value(attr_electronicShutterMode_read);
     }
     catch(Tango::DevFailed& df)
@@ -631,7 +1488,7 @@ void Andor3::write_electronicShutterMode(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_electronicShutterMode_write);
-        m_hw->setElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)attr_electronicShutterMode_write);
+        m_camera->setElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)attr_electronicShutterMode_write);
     }
     catch(Tango::DevFailed& df)
     {
@@ -774,8 +1631,7 @@ void Andor3::read_temperature(Tango::Attribute &attr)
 //-----------------------------------------------------------------------------
 void Andor3::read_cooler(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "Andor3::read_cooler(Tango::Attribute &attr) entering... "<< endl;
-
+  //	DEBUG_STREAM << "Andor3::read_cooler(Tango::Attribute &attr) entering... "<< endl;
     try
     {
         bool cooler = false;
@@ -970,6 +1826,9 @@ int Andor3::find_index_from_property_name(Tango::DbData& dev_prop, string proper
     if (i == iNbProperties) return -1;
     return i;
 }
+
+
+
 
 
 
