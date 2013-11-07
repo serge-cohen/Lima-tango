@@ -225,6 +225,258 @@ bool Andor3::is_adcRateStr_allowed(Tango::AttReqType type)
 	}
 	return true;
 }
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_electronicShutterModeStr_allowed
+// 
+// description : 	Read/Write allowed for electronicShutterModeStr attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_electronicShutterModeStr_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_bufferOverflow_allowed
+// 
+// description : 	Read/Write allowed for bufferOverflow attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_bufferOverflow_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_fanSpeed_allowed
+// 
+// description : 	Read/Write allowed for fanSpeed attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_fanSpeed_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_overlap_allowed
+// 
+// description : 	Read/Write allowed for overlap attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_overlap_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_spuriousNoisFilter_allowed
+// 
+// description : 	Read/Write allowed for spuriousNoisFilter attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_spuriousNoisFilter_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_syncTrigerring_allowed
+// 
+// description : 	Read/Write allowed for syncTrigerring attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_syncTrigerring_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_simpleGainControl_allowed
+// 
+// description : 	Read/Write allowed for simpleGainControl attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_simpleGainControl_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_simpleGainControlStr_allowed
+// 
+// description : 	Read/Write allowed for simpleGainControlStr attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_simpleGainControlStr_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_bytesPerPixel_allowed
+// 
+// description : 	Read/Write allowed for bytesPerPixel attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_bytesPerPixel_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_firmwareVersion_allowed
+// 
+// description : 	Read/Write allowed for firmwareVersion attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_firmwareVersion_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_frameRate_allowed
+// 
+// description : 	Read/Write allowed for frameRate attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_frameRate_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_frameRateMax_allowed
+// 
+// description : 	Read/Write allowed for frameRateMax attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_frameRateMax_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_frameRateMin_allowed
+// 
+// description : 	Read/Write allowed for frameRateMin attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_frameRateMin_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_fullRoiControl_allowed
+// 
+// description : 	Read/Write allowed for fullRoiControl attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_fullRoiControl_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_imageSize_allowed
+// 
+// description : 	Read/Write allowed for imageSize attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_imageSize_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_maxFrameRateTransfer_allowed
+// 
+// description : 	Read/Write allowed for maxFrameRateTransfer attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_maxFrameRateTransfer_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_readoutTime_allowed
+// 
+// description : 	Read/Write allowed for readoutTime attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_readoutTime_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::is_serialNumber_allowed
+// 
+// description : 	Read/Write allowed for serialNumber attribute.
+//
+//-----------------------------------------------------------------------------
+bool Andor3::is_serialNumber_allowed(Tango::AttReqType type)
+{
+		//	End of Generated Code
+
+		//	Re-Start of Generated Code
+	return true;
+}
 
 //=================================================
 //		Commands Allowed Methods

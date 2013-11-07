@@ -45,6 +45,234 @@ namespace Andor3_ns
 {//=====================================
 //	Define classes for attributes
 //=====================================
+class serialNumberAttrib: public Tango::Attr
+{
+public:
+	serialNumberAttrib():Attr("serialNumber", Tango::DEV_STRING, Tango::READ) {};
+	~serialNumberAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_serialNumber(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_serialNumber_allowed(ty);}
+};
+
+class readoutTimeAttrib: public Tango::Attr
+{
+public:
+	readoutTimeAttrib():Attr("readoutTime", Tango::DEV_DOUBLE, Tango::READ) {};
+	~readoutTimeAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_readoutTime(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_readoutTime_allowed(ty);}
+};
+
+class maxFrameRateTransferAttrib: public Tango::Attr
+{
+public:
+	maxFrameRateTransferAttrib():Attr("maxFrameRateTransfer", Tango::DEV_DOUBLE, Tango::READ) {};
+	~maxFrameRateTransferAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_maxFrameRateTransfer(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_maxFrameRateTransfer_allowed(ty);}
+};
+
+class imageSizeAttrib: public Tango::Attr
+{
+public:
+	imageSizeAttrib():Attr("imageSize", Tango::DEV_LONG, Tango::READ) {};
+	~imageSizeAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_imageSize(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_imageSize_allowed(ty);}
+};
+
+class fullRoiControlAttrib: public Tango::Attr
+{
+public:
+	fullRoiControlAttrib():Attr("fullRoiControl", Tango::DEV_BOOLEAN, Tango::READ) {};
+	~fullRoiControlAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_fullRoiControl(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_fullRoiControl_allowed(ty);}
+};
+
+class frameRateMinAttrib: public Tango::Attr
+{
+public:
+	frameRateMinAttrib():Attr("frameRateMin", Tango::DEV_DOUBLE, Tango::READ) {};
+	~frameRateMinAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_frameRateMin(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_frameRateMin_allowed(ty);}
+};
+
+class frameRateMaxAttrib: public Tango::Attr
+{
+public:
+	frameRateMaxAttrib():Attr("frameRateMax", Tango::DEV_DOUBLE, Tango::READ) {};
+	~frameRateMaxAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_frameRateMax(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_frameRateMax_allowed(ty);}
+};
+
+class frameRateAttrib: public Tango::Attr
+{
+public:
+	frameRateAttrib():Attr("frameRate", Tango::DEV_DOUBLE, Tango::READ) {};
+	~frameRateAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_frameRate(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_frameRate_allowed(ty);}
+};
+
+class firmwareVersionAttrib: public Tango::Attr
+{
+public:
+	firmwareVersionAttrib():Attr("firmwareVersion", Tango::DEV_STRING, Tango::READ) {};
+	~firmwareVersionAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_firmwareVersion(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_firmwareVersion_allowed(ty);}
+};
+
+class bytesPerPixelAttrib: public Tango::Attr
+{
+public:
+	bytesPerPixelAttrib():Attr("bytesPerPixel", Tango::DEV_DOUBLE, Tango::READ) {};
+	~bytesPerPixelAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_bytesPerPixel(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_bytesPerPixel_allowed(ty);}
+};
+
+class simpleGainControlStrAttrib: public Tango::Attr
+{
+public:
+	simpleGainControlStrAttrib():Attr("simpleGainControlStr", Tango::DEV_STRING, Tango::READ) {};
+	~simpleGainControlStrAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_simpleGainControlStr(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_simpleGainControlStr_allowed(ty);}
+};
+
+class simpleGainControlAttrib: public Tango::Attr
+{
+public:
+	simpleGainControlAttrib():Attr("simpleGainControl", Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~simpleGainControlAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_simpleGainControl(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_simpleGainControl(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_simpleGainControl_allowed(ty);}
+};
+
+class syncTrigerringAttrib: public Tango::Attr
+{
+public:
+	syncTrigerringAttrib():Attr("syncTrigerring", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~syncTrigerringAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_syncTrigerring(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_syncTrigerring(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_syncTrigerring_allowed(ty);}
+};
+
+class spuriousNoisFilterAttrib: public Tango::Attr
+{
+public:
+	spuriousNoisFilterAttrib():Attr("spuriousNoisFilter", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~spuriousNoisFilterAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_spuriousNoisFilter(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_spuriousNoisFilter(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_spuriousNoisFilter_allowed(ty);}
+};
+
+class overlapAttrib: public Tango::Attr
+{
+public:
+	overlapAttrib():Attr("overlap", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~overlapAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_overlap(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_overlap(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_overlap_allowed(ty);}
+};
+
+class fanSpeedAttrib: public Tango::Attr
+{
+public:
+	fanSpeedAttrib():Attr("fanSpeed", Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~fanSpeedAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_fanSpeed(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_fanSpeed(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_fanSpeed_allowed(ty);}
+};
+
+class bufferOverflowAttrib: public Tango::Attr
+{
+public:
+	bufferOverflowAttrib():Attr("bufferOverflow", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~bufferOverflowAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_bufferOverflow(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<Andor3 *>(dev))->write_bufferOverflow(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_bufferOverflow_allowed(ty);}
+};
+
+class electronicShutterModeStrAttrib: public Tango::Attr
+{
+public:
+	electronicShutterModeStrAttrib():Attr("electronicShutterModeStr", Tango::DEV_STRING, Tango::READ) {};
+	~electronicShutterModeStrAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<Andor3 *>(dev))->read_electronicShutterModeStr(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<Andor3 *>(dev))->is_electronicShutterModeStr_allowed(ty);}
+};
+
 class coolingStatusAttrib: public Tango::Attr
 {
 public:

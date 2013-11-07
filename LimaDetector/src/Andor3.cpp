@@ -324,6 +324,294 @@ void Andor3::read_attr_hardware(vector<long> &attr_list)
 }
 //+----------------------------------------------------------------------------
 //
+// method : 		Andor3::read_bytesPerPixel
+// 
+// description : 	Extract real attribute values for bytesPerPixel acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_bytesPerPixel(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_bytesPerPixel(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_firmwareVersion
+// 
+// description : 	Extract real attribute values for firmwareVersion acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_firmwareVersion(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_firmwareVersion(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRate
+// 
+// description : 	Extract real attribute values for frameRate acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRate(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_frameRate(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRateMax
+// 
+// description : 	Extract real attribute values for frameRateMax acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRateMax(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_frameRateMax(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_frameRateMin
+// 
+// description : 	Extract real attribute values for frameRateMin acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_frameRateMin(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_frameRateMin(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_fullRoiControl
+// 
+// description : 	Extract real attribute values for fullRoiControl acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_fullRoiControl(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_fullRoiControl(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_imageSize
+// 
+// description : 	Extract real attribute values for imageSize acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_imageSize(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_imageSize(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_maxFrameRateTransfer
+// 
+// description : 	Extract real attribute values for maxFrameRateTransfer acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_maxFrameRateTransfer(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_maxFrameRateTransfer(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_readoutTime
+// 
+// description : 	Extract real attribute values for readoutTime acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_readoutTime(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_readoutTime(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_serialNumber
+// 
+// description : 	Extract real attribute values for serialNumber acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_serialNumber(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_serialNumber(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_bufferOverflow
+// 
+// description : 	Extract real attribute values for bufferOverflow acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_bufferOverflow(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_bufferOverflow(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_bufferOverflow
+// 
+// description : 	Write bufferOverflow attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_bufferOverflow(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_bufferOverflow(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_fanSpeed
+// 
+// description : 	Extract real attribute values for fanSpeed acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_fanSpeed(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_fanSpeed(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_fanSpeed
+// 
+// description : 	Write fanSpeed attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_fanSpeed(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_fanSpeed(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_overlap
+// 
+// description : 	Extract real attribute values for overlap acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_overlap(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_overlap(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_overlap
+// 
+// description : 	Write overlap attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_overlap(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_overlap(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_spuriousNoisFilter
+// 
+// description : 	Extract real attribute values for spuriousNoisFilter acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_spuriousNoisFilter(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_spuriousNoisFilter(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_spuriousNoisFilter
+// 
+// description : 	Write spuriousNoisFilter attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_syncTrigerring
+// 
+// description : 	Extract real attribute values for syncTrigerring acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_syncTrigerring(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_syncTrigerring(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_syncTrigerring
+// 
+// description : 	Write syncTrigerring attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_syncTrigerring(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_syncTrigerring(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_simpleGainControl
+// 
+// description : 	Extract real attribute values for simpleGainControl acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_simpleGainControl(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_simpleGainControl(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::write_simpleGainControl
+// 
+// description : 	Write simpleGainControl attribute values to hardware.
+//
+//-----------------------------------------------------------------------------
+void Andor3::write_simpleGainControl(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Andor3::write_simpleGainControl(Tango::WAttribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_simpleGainControlStr
+// 
+// description : 	Extract real attribute values for simpleGainControlStr acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_simpleGainControlStr(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_simpleGainControlStr(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
+// method : 		Andor3::read_electronicShutterModeStr
+// 
+// description : 	Extract real attribute values for electronicShutterModeStr acquisition result.
+//
+//-----------------------------------------------------------------------------
+void Andor3::read_electronicShutterModeStr(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Andor3::read_electronicShutterModeStr(Tango::Attribute &attr) entering... "<< endl;
+}
+
+//+----------------------------------------------------------------------------
+//
 // method : 		Andor3::read_adcGainStr
 //
 // description : 	Extract real attribute values for adcGainStr acquisition result.
@@ -966,6 +1254,9 @@ int Andor3::find_index_from_property_name(Tango::DbData& dev_prop, string proper
     if (i == iNbProperties) return -1;
     return i;
 }
+
+
+
 
 
 
