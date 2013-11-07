@@ -2941,7 +2941,8 @@ void LimaDetector::snap()
         print_acq_conf();
 
         yat::Message* msg = yat::Message::allocate(DEVICE_SNAP_MSG, DEFAULT_MSG_PRIORITY, true);
-        m_acquisition_task->wait_msg_handled(msg, 5000);
+        // m_acquisition_task->wait_msg_handled(msg, 5000);
+        m_acquisition_task->post(msg);
     }
     catch (Tango::DevFailed& df)
     {
