@@ -191,32 +191,32 @@ public:
 	{return (static_cast<Andor3 *>(dev))->is_simpleGainControl_allowed(ty);}
 };
 
-class syncTrigerringAttrib: public Tango::Attr
+class syncTriggeringAttrib: public Tango::Attr
 {
 public:
-	syncTrigerringAttrib():Attr("syncTrigerring", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
-	~syncTrigerringAttrib() {};
+	syncTriggeringAttrib():Attr("syncTriggering", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~syncTriggeringAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<Andor3 *>(dev))->read_syncTrigerring(att);}
+	{(static_cast<Andor3 *>(dev))->read_syncTriggering(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<Andor3 *>(dev))->write_syncTrigerring(att);}
+	{(static_cast<Andor3 *>(dev))->write_syncTriggering(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<Andor3 *>(dev))->is_syncTrigerring_allowed(ty);}
+	{return (static_cast<Andor3 *>(dev))->is_syncTriggering_allowed(ty);}
 };
 
-class spuriousNoisFilterAttrib: public Tango::Attr
+class spuriousNoiseFilterAttrib: public Tango::Attr
 {
 public:
-	spuriousNoisFilterAttrib():Attr("spuriousNoisFilter", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
-	~spuriousNoisFilterAttrib() {};
+	spuriousNoiseFilterAttrib():Attr("spuriousNoiseFilter", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~spuriousNoiseFilterAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<Andor3 *>(dev))->read_spuriousNoisFilter(att);}
+	{(static_cast<Andor3 *>(dev))->read_spuriousNoiseFilter(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<Andor3 *>(dev))->write_spuriousNoisFilter(att);}
+	{(static_cast<Andor3 *>(dev))->write_spuriousNoiseFilter(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<Andor3 *>(dev))->is_spuriousNoisFilter_allowed(ty);}
+	{return (static_cast<Andor3 *>(dev))->is_spuriousNoiseFilter_allowed(ty);}
 };
 
 class overlapAttrib: public Tango::Attr

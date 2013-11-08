@@ -110,17 +110,17 @@ void Andor3::delete_device()
 
   DELETE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
   DELETE_SCALAR_ATTRIBUTE(attr_fanSpeed_read);
-  DELETE_DEVSTRING_ATTRIBUTE(attr_fanSpeedString_read,MAX_STRING_LENGTH);
+  //  DELETE_DEVSTRING_ATTRIBUTE(attr_fanSpeedStr_read);
   
   DELETE_SCALAR_ATTRIBUTE(attr_overlap_read);
   DELETE_SCALAR_ATTRIBUTE(attr_simpleGainControl_read);
-  DELETE_DEVSTRING_ATTRIBUTE(attr_simpleGainControlStr_read,MAX_STRING_LENGTH);
+  DELETE_DEVSTRING_ATTRIBUTE(attr_simpleGainControlStr_read);
 
   DELETE_SCALAR_ATTRIBUTE(attr_spuriousNoiseFilter_read);
   DELETE_SCALAR_ATTRIBUTE(attr_syncTriggering_read);
 
   DELETE_SCALAR_ATTRIBUTE(attr_bytesPerPixel_read);
-  DELETE_DEVSTRING_ATTRIBUTE(attr_firmwareVersion_read,MAX_STRING_LENGTH);
+  DELETE_DEVSTRING_ATTRIBUTE(attr_firmwareVersion_read);
 
   DELETE_SCALAR_ATTRIBUTE(attr_frameRate_read);
   DELETE_SCALAR_ATTRIBUTE(attr_frameRateMax_read);
@@ -129,7 +129,7 @@ void Andor3::delete_device()
   DELETE_SCALAR_ATTRIBUTE(attr_imageSize_read);
   DELETE_SCALAR_ATTRIBUTE(attr_maxFrameRateTransfer_read);
   DELETE_SCALAR_ATTRIBUTE(attr_readoutTime_read);
-  DELETE_DEVSTRING_ATTRIBUTE(attr_serialNumber_read,MAX_STRING_LENGTH);
+  DELETE_DEVSTRING_ATTRIBUTE(attr_serialNumber_read);
     DELETE_SCALAR_ATTRIBUTE(attr_adcGain_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_adcGainStr_read);
     DELETE_SCALAR_ATTRIBUTE(attr_adcRate_read);
@@ -165,7 +165,7 @@ void Andor3::init_device()
 
   CREATE_SCALAR_ATTRIBUTE(attr_bufferOverflow_read);
   CREATE_SCALAR_ATTRIBUTE(attr_fanSpeed_read);
-  CREATE_DEVSTRING_ATTRIBUTE(attr_fanSpeedString_read,MAX_STRING_LENGTH);
+  //  CREATE_DEVSTRING_ATTRIBUTE(attr_fanSpeedStr_read,MAX_STRING_LENGTH);
   
   CREATE_SCALAR_ATTRIBUTE(attr_overlap_read);
   CREATE_SCALAR_ATTRIBUTE(attr_simpleGainControl_read);
@@ -960,20 +960,20 @@ void Andor3::write_overlap(Tango::WAttribute &attr)
 
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::read_spuriousNoisFilter
+// method : 		Andor3::read_spuriousNoiseFilter
 // 
-// description : 	Extract real attribute values for spuriousNoisFilter acquisition result.
+// description : 	Extract real attribute values for spuriousNoiseFilter acquisition result.
 //
 //-----------------------------------------------------------------------------
-void Andor3::read_spuriousNoisFilter(Tango::Attribute &attr)
+void Andor3::read_spuriousNoiseFilter(Tango::Attribute &attr)
 {
-  //	DEBUG_STREAM << "Andor3::read_spuriousNoisFilter(Tango::Attribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::read_spuriousNoiseFilter(Tango::Attribute &attr) entering... "<< endl;
   bool the_value = false;
   m_camera->getSpuriousNoiseFilter(the_value);
   try
   {
-    *attr_spuriousNoisFilter_read = the_value;
-    attr.set_value(attr_spuriousNoisFilter_read);
+    *attr_spuriousNoiseFilter_read = the_value;
+    attr.set_value(attr_spuriousNoiseFilter_read);
   }
   catch(Tango::DevFailed& df)
   {
@@ -997,18 +997,18 @@ void Andor3::read_spuriousNoisFilter(Tango::Attribute &attr)
 
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::write_spuriousNoisFilter
+// method : 		Andor3::write_spuriousNoiseFilter
 // 
-// description : 	Write spuriousNoisFilter attribute values to hardware.
+// description : 	Write spuriousNoiseFilter attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
-void Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr)
+void Andor3::write_spuriousNoiseFilter(Tango::WAttribute &attr)
 {
-  //	DEBUG_STREAM << "Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::write_spuriousNoiseFilter(Tango::WAttribute &attr) entering... "<< endl;
   try
   {
-    attr.get_write_value(attr_spuriousNoisFilter_write);
-    m_camera->setSpuriousNoiseFilter(attr_spuriousNoisFilter_write);
+    attr.get_write_value(attr_spuriousNoiseFilter_write);
+    m_camera->setSpuriousNoiseFilter(attr_spuriousNoiseFilter_write);
   }
   catch(Tango::DevFailed& df)
   {
@@ -1032,20 +1032,20 @@ void Andor3::write_spuriousNoisFilter(Tango::WAttribute &attr)
 
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::read_syncTrigerring
+// method : 		Andor3::read_syncTriggering
 // 
-// description : 	Extract real attribute values for syncTrigerring acquisition result.
+// description : 	Extract real attribute values for syncTriggering acquisition result.
 //
 //-----------------------------------------------------------------------------
-void Andor3::read_syncTrigerring(Tango::Attribute &attr)
+void Andor3::read_syncTriggering(Tango::Attribute &attr)
 {
-  //	DEBUG_STREAM << "Andor3::read_syncTrigerring(Tango::Attribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::read_syncTriggering(Tango::Attribute &attr) entering... "<< endl;
   bool the_value = false;
   m_camera->getSyncTriggering(the_value);
   try
   {
-    *attr_syncTrigerring_read = the_value;
-    attr.set_value(attr_syncTrigerring_read);
+    *attr_syncTriggering_read = the_value;
+    attr.set_value(attr_syncTriggering_read);
   }
   catch(Tango::DevFailed& df)
   {
@@ -1069,18 +1069,18 @@ void Andor3::read_syncTrigerring(Tango::Attribute &attr)
 
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::write_syncTrigerring
+// method : 		Andor3::write_syncTriggering
 // 
-// description : 	Write syncTrigerring attribute values to hardware.
+// description : 	Write syncTriggering attribute values to hardware.
 //
 //-----------------------------------------------------------------------------
-void Andor3::write_syncTrigerring(Tango::WAttribute &attr)
+void Andor3::write_syncTriggering(Tango::WAttribute &attr)
 {
-  //	DEBUG_STREAM << "Andor3::write_syncTrigerring(Tango::WAttribute &attr) entering... "<< endl;
+  //	DEBUG_STREAM << "Andor3::write_syncTriggering(Tango::WAttribute &attr) entering... "<< endl;
   try
   {
-    attr.get_write_value(attr_syncTrigerring_write);
-    m_camera->setSyncTriggering(attr_syncTrigerring_write);
+    attr.get_write_value(attr_syncTriggering_write);
+    m_camera->setSyncTriggering(attr_syncTriggering_write);
   }
   catch(Tango::DevFailed& df)
   {

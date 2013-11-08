@@ -283,12 +283,12 @@ bool Andor3::is_overlap_allowed(Tango::AttReqType type)
 }
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::is_spuriousNoisFilter_allowed
+// method : 		Andor3::is_spuriousNoiseFilter_allowed
 // 
-// description : 	Read/Write allowed for spuriousNoisFilter attribute.
+// description : 	Read/Write allowed for spuriousNoiseFilter attribute.
 //
 //-----------------------------------------------------------------------------
-bool Andor3::is_spuriousNoisFilter_allowed(Tango::AttReqType type)
+bool Andor3::is_spuriousNoiseFilter_allowed(Tango::AttReqType type)
 {
 		//	End of Generated Code
 
@@ -297,12 +297,12 @@ bool Andor3::is_spuriousNoisFilter_allowed(Tango::AttReqType type)
 }
 //+----------------------------------------------------------------------------
 //
-// method : 		Andor3::is_syncTrigerring_allowed
+// method : 		Andor3::is_syncTriggering_allowed
 // 
-// description : 	Read/Write allowed for syncTrigerring attribute.
+// description : 	Read/Write allowed for syncTriggering attribute.
 //
 //-----------------------------------------------------------------------------
-bool Andor3::is_syncTrigerring_allowed(Tango::AttReqType type)
+bool Andor3::is_syncTriggering_allowed(Tango::AttReqType type)
 {
 		//	End of Generated Code
 

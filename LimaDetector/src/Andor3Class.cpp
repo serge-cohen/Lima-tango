@@ -355,15 +355,15 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	overlap->set_disp_level(Tango::EXPERT);
 	att_list.push_back(overlap);
 
-	//	Attribute : spuriousNoisFilter
-	spuriousNoisFilterAttrib	*spurious_nois_filter = new spuriousNoisFilterAttrib();
+	//	Attribute : spuriousNoiseFilter
+	spuriousNoiseFilterAttrib	*spurious_nois_filter = new spuriousNoiseFilterAttrib();
 	spurious_nois_filter->set_disp_level(Tango::EXPERT);
 	spurious_nois_filter->set_memorized();
 	spurious_nois_filter->set_memorized_init(true);
 	att_list.push_back(spurious_nois_filter);
 
-	//	Attribute : syncTrigerring
-	syncTrigerringAttrib	*sync_trigerring = new syncTrigerringAttrib();
+	//	Attribute : syncTriggering
+	syncTriggeringAttrib	*sync_trigerring = new syncTriggeringAttrib();
 	sync_trigerring->set_disp_level(Tango::EXPERT);
 	att_list.push_back(sync_trigerring);
 

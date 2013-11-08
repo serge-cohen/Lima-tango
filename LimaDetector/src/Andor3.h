@@ -119,10 +119,10 @@ public :
 		Tango::DevLong	attr_fanSpeed_write;
 		Tango::DevBoolean	*attr_overlap_read;
 		Tango::DevBoolean	attr_overlap_write;
-		Tango::DevBoolean	*attr_spuriousNoisFilter_read;
-		Tango::DevBoolean	attr_spuriousNoisFilter_write;
-		Tango::DevBoolean	*attr_syncTrigerring_read;
-		Tango::DevBoolean	attr_syncTrigerring_write;
+		Tango::DevBoolean	*attr_spuriousNoiseFilter_read;
+		Tango::DevBoolean	attr_spuriousNoiseFilter_write;
+		Tango::DevBoolean	*attr_syncTriggering_read;
+		Tango::DevBoolean	attr_syncTriggering_write;
 		Tango::DevLong	*attr_simpleGainControl_read;
 		Tango::DevLong	attr_simpleGainControl_write;
 		Tango::DevString	*attr_simpleGainControlStr_read;
@@ -308,21 +308,21 @@ public :
  */
 	virtual void write_overlap(Tango::WAttribute &attr);
 /**
- *	Extract real attribute values for spuriousNoisFilter acquisition result.
+ *	Extract real attribute values for spuriousNoiseFilter acquisition result.
  */
-	virtual void read_spuriousNoisFilter(Tango::Attribute &attr);
+	virtual void read_spuriousNoiseFilter(Tango::Attribute &attr);
 /**
- *	Write spuriousNoisFilter attribute values to hardware.
+ *	Write spuriousNoiseFilter attribute values to hardware.
  */
-	virtual void write_spuriousNoisFilter(Tango::WAttribute &attr);
+	virtual void write_spuriousNoiseFilter(Tango::WAttribute &attr);
 /**
- *	Extract real attribute values for syncTrigerring acquisition result.
+ *	Extract real attribute values for syncTriggering acquisition result.
  */
-	virtual void read_syncTrigerring(Tango::Attribute &attr);
+	virtual void read_syncTriggering(Tango::Attribute &attr);
 /**
- *	Write syncTrigerring attribute values to hardware.
+ *	Write syncTriggering attribute values to hardware.
  */
-	virtual void write_syncTrigerring(Tango::WAttribute &attr);
+	virtual void write_syncTriggering(Tango::WAttribute &attr);
 /**
  *	Extract real attribute values for simpleGainControl acquisition result.
  */
@@ -428,13 +428,13 @@ public :
  */
 	virtual bool is_overlap_allowed(Tango::AttReqType type);
 /**
- *	Read/Write allowed for spuriousNoisFilter attribute.
+ *	Read/Write allowed for spuriousNoiseFilter attribute.
  */
-	virtual bool is_spuriousNoisFilter_allowed(Tango::AttReqType type);
+	virtual bool is_spuriousNoiseFilter_allowed(Tango::AttReqType type);
 /**
- *	Read/Write allowed for syncTrigerring attribute.
+ *	Read/Write allowed for syncTriggering attribute.
  */
-	virtual bool is_syncTrigerring_allowed(Tango::AttReqType type);
+	virtual bool is_syncTriggering_allowed(Tango::AttReqType type);
 /**
  *	Read/Write allowed for simpleGainControl attribute.
  */
