@@ -457,6 +457,7 @@ void Andor3::read_adcRateStr(Tango::Attribute &attr)
 //-----------------------------------------------------------------------------
 void Andor3::read_adcGain(Tango::Attribute &attr)
 {
+#warning proper conversion/cast (also shutter and rate)
 	DEBUG_STREAM << "Andor3::read_adcGain(Tango::Attribute &attr) entering... "<< endl;
 
     try
@@ -498,7 +499,8 @@ void Andor3::write_adcGain(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcGain_write);
-        m_hw->setAdcGain((lima::Andor3::Camera::A3_Gain&)attr_adcGain_write);
+	lima::Andor3::Camera::A3_Gain the_gain = static_cast<lima::Andor3::Camera::A3_Gain>(attr_adcGain_write);
+        m_hw->setAdcGain(the_gain);
     }
     catch(Tango::DevFailed& df)
     {
@@ -570,7 +572,8 @@ void Andor3::write_adcRate(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_adcRate_write);
-        m_hw->setAdcRate((lima::Andor3::Camera::A3_ReadOutRate&)attr_adcRate_write);
+	lima::Andor3::Camera::A3_ReadOutRate the_rate = static_cast<lima::Andor3::Camera::A3_ReadOutRate>(attr_adcRate_write);
+        m_hw->setAdcRate(the_rate);
     }
     catch(Tango::DevFailed& df)
     {
@@ -642,7 +645,8 @@ void Andor3::write_electronicShutterMode(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_electronicShutterMode_write);
-        m_hw->setElectronicShutterMode((lima::Andor3::Camera::A3_ShutterMode&)attr_electronicShutterMode_write);
+	lima::Andor3::Camera::A3_ShutterMode   the_sm = static_cast<lima::Andor3::Camera::A3_ShutterMode>(attr_electronicShutterMode_write);
+        m_hw->setElectronicShutterMode(the_sm);
     }
     catch(Tango::DevFailed& df)
     {
