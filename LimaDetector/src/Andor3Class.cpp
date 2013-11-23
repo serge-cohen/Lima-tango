@@ -333,8 +333,8 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	cooler_prop.set_unit(" ");
 	cooler_prop.set_description("Cooler : ON/OFF");
 	cooler->set_default_properties(cooler_prop);
-	cooler->set_memorized();
-	cooler->set_memorized_init(true);
+	//cooler->set_memorized();
+	//cooler->set_memorized_init(true);
 	att_list.push_back(cooler);
 
 	//	Attribute : coolingStatus
