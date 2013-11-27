@@ -376,7 +376,7 @@ void Andor3::read_bytesPerPixel(Tango::Attribute &attr)
   {
     double the_value = 0;
     m_camera->getBytesPerPixel(the_value);
-    *attr_bytesPerPixel_read = static_cast<DevDouble>(the_value);
+    *attr_bytesPerPixel_read = static_cast<Tango::DevDouble>(the_value);
     attr.set_value(attr_bytesPerPixel_read);
   }
   catch(Tango::DevFailed& df)
@@ -450,7 +450,7 @@ void Andor3::read_frameRate(Tango::Attribute &attr)
   {
     double the_value = 0;
     m_camera->getFrameRate(the_value);
-    *attr_frameRate_read = static_cast<DevDouble>(the_value);
+    *attr_frameRate_read = static_cast<Tango::DevDouble>(the_value);
     attr.set_value(attr_frameRate_read);
   }
   catch(Tango::DevFailed& df)
@@ -488,7 +488,7 @@ void Andor3::read_frameRateMax(Tango::Attribute &attr)
   {
     double the_max, the_min;
     m_camera->getFrameRateRange(the_min, the_max);
-    *attr_frameRateMax_read = static_cast<DevDouble>(the_max);
+    *attr_frameRateMax_read = static_cast<Tango::DevDouble>(the_max);
     attr.set_value(attr_frameRateMax_read);
   }
   catch(Tango::DevFailed& df)
@@ -526,7 +526,7 @@ void Andor3::read_frameRateMin(Tango::Attribute &attr)
   {
     double the_max, the_min;
     m_camera->getFrameRateRange(the_min, the_max);
-    *attr_frameRateMin_read = static_cast<DevDouble>(the_min);
+    *attr_frameRateMin_read = static_cast<Tango::DevDouble>(the_min);
     attr.set_value(attr_frameRateMin_read);
   }
   catch(Tango::DevFailed& df)
@@ -564,7 +564,7 @@ void Andor3::read_maxFrameRateTransfer(Tango::Attribute &attr)
   {
     double the_value = 0;
     m_camera->getMaxFrameRateTransfer(the_value);
-    *attr_maxFrameRateTransfer_read = static_cast<DevDouble>(the_value);
+    *attr_maxFrameRateTransfer_read = static_cast<Tango::DevDouble>(the_value);
     attr.set_value(attr_maxFrameRateTransfer_read);
   }
   catch(Tango::DevFailed& df)
@@ -602,7 +602,7 @@ void Andor3::read_fullRoiControl(Tango::Attribute &attr)
   {
     bool the_value;
     m_camera->getFullRoiControl(the_value);
-    *attr_fullRoiControl_read = static_cast<DevBoolean>(the_value);
+    *attr_fullRoiControl_read = static_cast<Tango::DevBoolean>(the_value);
     attr.set_value(attr_fullRoiControl_read);
   }
   catch(Tango::DevFailed& df)
@@ -640,7 +640,7 @@ void Andor3::read_imageSize(Tango::Attribute &attr)
   {
     int the_value = 0;
     m_camera->getImageSize(the_value);
-    *attr_imageSize_read = static_cast<DevDouble>(the_value) / 1024.0 / 1024.0; // Device in MB, Camera in B
+    *attr_imageSize_read = static_cast<Tango::DevDouble>(the_value) / 1024.0 / 1024.0; // Device in MB, Camera in B
     attr.set_value(attr_imageSize_read);
   }
   catch(Tango::DevFailed& df)
@@ -678,7 +678,7 @@ void Andor3::read_readoutTime(Tango::Attribute &attr)
   {
     double the_value = 0;
     m_camera->getReadoutTime(the_value);
-    *attr_readoutTime_read = static_cast<DevDouble>(the_value) * 1000; // Device in ms, Camera in s
+    *attr_readoutTime_read = static_cast<Tango::DevDouble>(the_value) * 1000; // Device in ms, Camera in s
     attr.set_value(attr_readoutTime_read);
   }
   catch(Tango::DevFailed& df)
@@ -752,7 +752,7 @@ void Andor3::read_simpleGain(Tango::Attribute &attr)
   {
     lima::Andor3::Camera::A3_SimpleGain the_value;
     m_hw->getSimpleGain(the_value);
-    *attr_simpleGain_read = static_cast<DevUShort>(the_value);
+    *attr_simpleGain_read = static_cast<Tango::DevUShort>(the_value);
     attr.set_value(attr_simpleGain_read);
   }
   catch(Tango::DevFailed& df)
@@ -858,7 +858,7 @@ void Andor3::read_electronicShutterModeStr(Tango::Attribute &attr)
 {
 //	DEBUG_STREAM << "Andor3::read_electronicShutterModeStr(Tango::Attribute &attr) entering... "<< endl;
 	std::string    the_value;
-	m_hw->getElectronicShutterMode(the_value);
+	m_hw->getElectronicShutterModeString(the_value);
 	try {
 	  strcpy(*attr_electronicShutterModeStr_read, the_value.c_str());
 	  attr.set_value(attr_electronicShutterModeStr_read);
@@ -897,7 +897,7 @@ void Andor3::read_fanSpeed(Tango::Attribute &attr)
   {
     lima::Andor3::Camera::A3_FanSpeed the_value;
     m_camera->getFanSpeed(the_value);
-    *attr_fanSpeed_read = static_cast<DevUShort>(the_value);
+    *attr_fanSpeed_read = static_cast<Tango::DevUShort>(the_value);
     attr.set_value(attr_fanSpeed_read);
   }
   catch(Tango::DevFailed& df)
@@ -1006,7 +1006,7 @@ void Andor3::read_bufferOverflow(Tango::Attribute &attr)
   {
     bool the_value;
     m_camera->getBufferOverflow(the_value);
-    *attr_bufferOverflow_read = static_cast<DevBoolean>(the_value);
+    *attr_bufferOverflow_read = static_cast<Tango::DevBoolean>(the_value);
     attr.set_value(attr_bufferOverflow_read);
   }
   catch(Tango::DevFailed& df)
@@ -1081,7 +1081,7 @@ void Andor3::read_overlap(Tango::Attribute &attr)
   {
     bool the_value;
     m_hw->getOverlap(the_value);
-    *attr_overlap_read = static_cast<DevBoolean>(the_value);
+    *attr_overlap_read = static_cast<Tango::DevBoolean>(the_value);
     attr.set_value(attr_overlap_read);
   }
   catch(Tango::DevFailed& df)
@@ -1152,12 +1152,12 @@ void Andor3::write_overlap(Tango::WAttribute &attr)
 void Andor3::read_syncTriggering(Tango::Attribute &attr)
 {
 //	DEBUG_STREAM << "Andor3::read_syncTriggering(Tango::Attribute &attr) entering... "<< endl;
-#waring Maybe this should be read+write and not read alone like it is currently ?
+#warning Maybe this should be read+write and not read alone like it is currently ?
   try
   {
     bool the_value;
     m_hw->getSyncTriggering(the_value);
-    *attr_syncTriggering_read = static_cast<DevBoolean>(the_value);
+    *attr_syncTriggering_read = static_cast<Tango::DevBoolean>(the_value);
     attr.set_value(attr_syncTriggering_read);
   }
   catch(Tango::DevFailed& df)
@@ -1195,7 +1195,7 @@ void Andor3::read_spuriousNoiseFilter(Tango::Attribute &attr)
   {
     bool the_value;
     m_camera->getSpuriousNoiseFilter(the_value);
-    *attr_spuriousNoiseFilter_read = static_cast<DevBoolean>(the_value);
+    *attr_spuriousNoiseFilter_read = static_cast<Tango::DevBoolean>(the_value);
     attr.set_value(attr_spuriousNoiseFilter_read);
   }
   catch(Tango::DevFailed& df)
@@ -1376,7 +1376,7 @@ void Andor3::read_adcGain(Tango::Attribute &attr)
   {
     lima::Andor3::Camera::A3_Gain the_value;
     m_hw->getAdcGain(the_value);
-    *attr_adcGain_read = static_cast<DevUShort>(the_value);
+    *attr_adcGain_read = static_cast<Tango::DevUShort>(the_value);
     attr.set_value(attr_adcGain_read);
   }
   catch(Tango::DevFailed& df)
@@ -1449,7 +1449,7 @@ void Andor3::read_adcRate(Tango::Attribute &attr)
   {
     lima::Andor3::Camera::A3_ReadOutRate the_value;
     m_hw->getAdcRate(the_value);
-    *attr_adcRate_read = static_cast<DevUShort>(the_value);
+    *attr_adcRate_read = static_cast<Tango::DevUShort>(the_value);
     attr.set_value(attr_adcRate_read);
   }
   catch(Tango::DevFailed& df)
@@ -1523,7 +1523,7 @@ void Andor3::read_electronicShutterMode(Tango::Attribute &attr)
   {
     lima::Andor3::Camera::A3_ShutterMode the_value;
     m_hw->getElectronicShutterMode(the_value);
-    *attr_electronicShutterMode_read = static_cast<DevUShort>(the_value);
+    *attr_electronicShutterMode_read = static_cast<Tango::DevUShort>(the_value);
     attr.set_value(attr_electronicShutterMode_read);
   }
   catch(Tango::DevFailed& df)
@@ -1598,7 +1598,7 @@ void Andor3::read_temperatureSP(Tango::Attribute &attr)
     {
         double temperature_sp = 0;
 		m_camera->getTemperatureSP(temperature_sp);
-        *attr_temperatureSP_read = static_cast<DevDouble>(temperature_sp);
+        *attr_temperatureSP_read = static_cast<Tango::DevDouble>(temperature_sp);
         attr.set_value(attr_temperatureSP_read);
     }
     catch(Tango::DevFailed& df)
@@ -1635,7 +1635,7 @@ void Andor3::write_temperatureSP(Tango::WAttribute &attr)
     try
     {
         attr.get_write_value(attr_temperatureSP_write);
-      double the_value = static_cast<double>(attr_temperatureSP_write)
+	double the_value = static_cast<double>(attr_temperatureSP_write);
         m_camera->setTemperatureSP(the_value);
     }
     catch(Tango::DevFailed& df)
@@ -1672,7 +1672,7 @@ void Andor3::read_temperature(Tango::Attribute &attr)
     {
         double temperature = 0;
 		m_camera->getTemperature(temperature);
-        *attr_temperature_read = static_cast<DevDouble>(temperature);
+        *attr_temperature_read = static_cast<Tango::DevDouble>(temperature);
         attr.set_value(attr_temperature_read);
     }
     catch(Tango::DevFailed& df)
@@ -1709,7 +1709,7 @@ void Andor3::read_cooler(Tango::Attribute &attr)
     {
         bool cooler = false;
 		m_camera->getCooler(cooler);
-        *attr_cooler_read = static_cast<DevBoolean>(cooler);
+        *attr_cooler_read = static_cast<Tango::DevBoolean>(cooler);
         attr.set_value(attr_cooler_read);
     }
     catch(Tango::DevFailed& df)

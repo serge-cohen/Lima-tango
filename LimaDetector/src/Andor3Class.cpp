@@ -273,7 +273,7 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	simple_gain_prop.set_format("%d");
 	simple_gain_prop.set_max_value("3");
 	simple_gain_prop.set_min_value("0");
-	simple_gain_prop.set_description("A simple way to set the gain. Either "low noise", "low signal" or "high dynamic range".\nAs the index of the hardware's SDK enum.");
+	simple_gain_prop.set_description("A simple way to set the gain. Either 'low noise', 'low signal' or 'high dynamic range'.\nAs the index of the hardware's SDK enum.");
 	simple_gain->set_default_properties(simple_gain_prop);
 	att_list.push_back(simple_gain);
 
