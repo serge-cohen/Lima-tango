@@ -69,6 +69,11 @@ void ControlFactory::initialize_pointers()
     my_interface_andor3	    = 0;
 #endif
 
+#ifdef VIEWORKSVP_ENABLED
+    my_camera_vieworksvp    = 0;
+    my_interface_vieworksvp = 0;
+#endif
+
     my_server_name 			= "none";
     my_device_name 			= "none";
 
@@ -94,7 +99,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
         }
 
 #ifdef SIMULATOR_ENABLED
-        if (detector_type.compare("SimulatorCCD")== 0)
+        if (detector_type == "SimulatorCCD")
         {
             if(!ControlFactory::is_created)
             {       
@@ -108,7 +113,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef AVIEX_ENABLED
-        if (detector_type.compare("AviexCCD")== 0)
+        if (detector_type == "AviexCCD")
         {
             if(!ControlFactory::is_created)
             {
@@ -131,7 +136,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
         
 #ifdef BASLER_ENABLED
-        if (detector_type.compare("BaslerCCD")== 0)
+        if (detector_type == "BaslerCCD")
         {
             if(!ControlFactory::is_created)
             {
@@ -158,7 +163,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef XPAD_ENABLED
-        if (detector_type.compare("XpadPixelDetector")== 0)
+        if (detector_type == "XpadPixelDetector")
         {    
 
             if(!ControlFactory::is_created)
@@ -185,7 +190,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef PILATUS_ENABLED
-        if (detector_type.compare("PilatusPixelDetector")== 0)
+        if (detector_type == "PilatusPixelDetector")
         {
 
             if(!ControlFactory::is_created)
@@ -216,7 +221,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef MARCCD_ENABLED
-        if (detector_type.compare("MarCCD")== 0)
+        if (detector_type == "MarCCD")
         {
             if(!ControlFactory::is_created)
             {
@@ -249,7 +254,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef ADSC_ENABLED
-        if (detector_type.compare("AdscCCD")== 0)
+        if (detector_type == "AdscCCD")
         {
 
             if(!ControlFactory::is_created)
@@ -278,7 +283,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif        
 
 #ifdef PROSILICA_ENABLED
-        if (detector_type.compare("ProsilicaCCD")== 0)
+        if (detector_type == "ProsilicaCCD")
         {
 
             if(!ControlFactory::is_created)
@@ -299,7 +304,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef PRINCETON_ENABLED
-        if (detector_type.compare("PrincetonCCD")== 0)
+        if (detector_type == "PrincetonCCD")
         {
 
             if(!ControlFactory::is_created)
@@ -319,7 +324,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef PCO_ENABLED
-        if (detector_type.compare("Pco")== 0)
+        if (detector_type == "Pco")
         {
             if(!ControlFactory::is_created)
             {
@@ -333,7 +338,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef PERKINELMER_ENABLED
-        if (detector_type.compare("PerkinElmer")== 0)
+        if (detector_type == "PerkinElmer")
         {
             if(!ControlFactory::is_created)
             {
@@ -346,7 +351,7 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
 #endif
 
 #ifdef ANDOR3_ENABLED
-        if (detector_type.compare("Andor3")== 0)
+        if (detector_type == "Andor3")
         {
             if(!ControlFactory::is_created)
             {
@@ -362,6 +367,39 @@ CtControl* ControlFactory::get_control( const std::string& detector_type)
                 my_camera_andor3            = new Andor3::Camera(bit_flow_path,camera_number);
                 my_interface_andor3         = new Andor3::Interface(*my_camera_andor3);
                 my_control                  = new CtControl(my_interface_andor3);
+                ControlFactory::is_created  = true;
+                return my_control;
+            }
+        }
+#endif
+
+#ifdef VIEWORKSVP_ENABLED
+        if (detector_type == "VieworksVP")
+        {
+            if(!ControlFactory::is_created)
+            {
+                Tango::DbData db_data;
+                db_data.push_back(Tango::DbDatum("SisoPath"));
+				db_data.push_back(Tango::DbDatum("BoardIndex"));
+                db_data.push_back(Tango::DbDatum("CameraPort"));
+                db_data.push_back(Tango::DbDatum("AppletName"));
+                db_data.push_back(Tango::DbDatum("DMAIndex"));
+                
+                (Tango::Util::instance()->get_database())->get_device_property(my_device_name, db_data);
+                std::string siso_path;
+                long board_index;
+                long camera_port;
+                std::string applet_name;
+                unsigned long dma_index;
+                db_data[0] >> siso_path;
+                db_data[1] >> board_index;
+                db_data[2] >> camera_port;
+                db_data[3] >> applet_name;
+                db_data[4] >> dma_index;
+                
+                my_camera_vieworksvp        = new VieworksVP::Camera(siso_path,board_index,camera_port,applet_name,dma_index);
+                my_interface_vieworksvp     = new VieworksVP::Interface(*my_camera_vieworksvp);
+                my_control                  = new CtControl(my_interface_vieworksvp);
                 ControlFactory::is_created  = true;
                 return my_control;
             }
@@ -407,7 +445,7 @@ void ControlFactory::reset(const std::string& detector_type )
             }
 
 #ifdef SIMULATOR_ENABLED
-            if (detector_type.compare("SimulatorCCD")== 0)
+            if (detector_type == "SimulatorCCD")
             {
                 if(my_camera_simulator)
                 {
@@ -424,7 +462,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif        
 
 #ifdef AVIEX_ENABLED
-            if (detector_type.compare("AviexCCD")==0)
+            if (detector_type == "AviexCCD")
             {
                 if(my_camera_aviex)
                 {
@@ -441,7 +479,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
             
 #ifdef BASLER_ENABLED
-            if (detector_type.compare("BaslerCCD")==0)
+            if (detector_type == "BaslerCCD")
             {
                 if(my_camera_basler)
                 {
@@ -458,7 +496,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef XPAD_ENABLED
-            if (detector_type.compare("XpadPixelDetector")==0)
+            if (detector_type == "XpadPixelDetector")
             {
                 if(my_camera_xpad)
                 {
@@ -476,7 +514,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef PILATUS_ENABLED
-            if (detector_type.compare("PilatusPixelDetector")==0)
+            if (detector_type == "PilatusPixelDetector")
             {
                 if(my_camera_pilatus)
                 {
@@ -493,7 +531,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef MARCCD_ENABLED
-            if (detector_type.compare("MarCCD")==0)
+            if (detector_type == "MarCCD")
             {
                 if(my_camera_marccd)
                 {
@@ -511,7 +549,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif     
 
 #ifdef ADSC_ENABLED
-            if (detector_type.compare("AdscCCD")==0)
+            if (detector_type == "AdscCCD")
             {
                 if(my_camera_adsc)
                 {
@@ -528,7 +566,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef PROSILICA_ENABLED
-            if (detector_type.compare("ProsilicaCCD")==0)
+            if (detector_type == "ProsilicaCCD")
             {
                 if(my_camera_prosilica)
                 {
@@ -545,7 +583,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef PRINCETON_ENABLED
-            if (detector_type.compare("PrincetonCCD")==0)
+            if (detector_type == "PrincetonCCD")
             {
                 if(my_interface_princeton)
                 {
@@ -562,7 +600,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef PCO_ENABLED
-            if (detector_type.compare("Pco")==0)
+            if (detector_type == "Pco")
             {
                 if(my_interface_pco)
                 {
@@ -579,7 +617,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef PERKINELMER_ENABLED
-            if (detector_type.compare("PerkinElmer")==0)
+            if (detector_type == "PerkinElmer")
             {
                 if(my_interface_perkinelmer)
                 {
@@ -590,7 +628,7 @@ void ControlFactory::reset(const std::string& detector_type )
 #endif
 
 #ifdef ANDOR3_ENABLED
-            if (detector_type.compare("Andor3")==0)
+            if (detector_type == "Andor3")
             {
                 if(my_interface_andor3)
                 {
@@ -602,6 +640,23 @@ void ControlFactory::reset(const std::string& detector_type )
                 {
                     delete my_camera_andor3;
                     my_camera_andor3 = 0;
+                }
+            }
+#endif
+
+#ifdef VIEWORKSVP_ENABLED
+            if (detector_type == "VieworksVP")
+            {
+                if(my_interface_vieworksvp)
+                {
+                    delete my_interface_vieworksvp;
+                    my_interface_vieworksvp = 0;
+                }
+
+                if(my_camera_vieworksvp)
+                {
+                    delete my_camera_vieworksvp;
+                    my_camera_vieworksvp = 0;
                 }
             }
 #endif
