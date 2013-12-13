@@ -101,7 +101,6 @@
     #include <VieworksVPDetInfoCtrlObj.h>
     #include <VieworksVPInterface.h>
     #include <VieworksVPRoiCtrlObj.h>
-    #include <VieworksVPShutterCtrlObj.h>
     #include <VieworksVPSyncCtrlObj.h>    
 #endif
 

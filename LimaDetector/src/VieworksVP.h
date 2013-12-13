@@ -46,6 +46,8 @@
 #include "tango.h"
 #endif
 
+#undef RGB24 // should be fixed with tango8
+
 #include "HwInterface.h"
 #include "CtControl.h"
 #include "CtAcquisition.h"
@@ -55,10 +57,6 @@
 #ifndef WIN32
 #include "tango.h"
 #endif
-
-
-#include <VieworksVPInterface.h>
-#include <VieworksVPCamera.h>
 
 #define MAX_STRING_LENGTH     256
 
@@ -128,8 +126,8 @@ public :
 		Tango::DevUChar	attr_analogOffset_write;
 		Tango::DevUChar	*attr_flatFieldIteration_read;
 		Tango::DevUChar	attr_flatFieldIteration_write;
-		Tango::DevShort	*attr_flatFieldOffset_read;
-		Tango::DevShort	attr_flatFieldOffset_write;
+		Tango::DevUShort	*attr_flatFieldOffset_read;
+		Tango::DevUShort	attr_flatFieldOffset_write;
 		Tango::DevLong	*attr_temperatureSP_read;
 		Tango::DevLong	attr_temperatureSP_write;
 		Tango::DevShort	*attr_pixelClock_read;
@@ -582,9 +580,9 @@ protected :
     stringstream        m_status_message;
     
     //lima OBJECTS
-    VieworksVP::Camera*       m_camera;    
-    VieworksVP::Interface*    m_hw;
-    CtControl*                m_ct;
+    lima::VieworksVP::Camera*       m_camera;    
+    lima::VieworksVP::Interface*    m_hw;
+    lima::CtControl*                m_ct;
 };
 
 }	// namespace_ns

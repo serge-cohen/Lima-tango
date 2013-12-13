@@ -125,7 +125,6 @@ void VieworksVP::delete_device()
 
     DELETE_DEVSTRING_ATTRIBUTE(attr_testImageStr_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_dataBitsStr_read);
-    DELETE_DEVSTRING_ATTRIBUTE(attr_adcGainStr_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_mCUVersion_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_modelNumber_read);
     DELETE_DEVSTRING_ATTRIBUTE(attr_fPGAVersion_read);
@@ -178,7 +177,6 @@ void VieworksVP::init_device()
 
     CREATE_DEVSTRING_ATTRIBUTE(attr_testImageStr_read,MAX_STRING_LENGTH);
     CREATE_DEVSTRING_ATTRIBUTE(attr_dataBitsStr_read,MAX_STRING_LENGTH);
-    CREATE_DEVSTRING_ATTRIBUTE(attr_adcGainStr_read,MAX_STRING_LENGTH);
     CREATE_DEVSTRING_ATTRIBUTE(attr_mCUVersion_read,MAX_STRING_LENGTH);
     CREATE_DEVSTRING_ATTRIBUTE(attr_modelNumber_read,MAX_STRING_LENGTH);
     CREATE_DEVSTRING_ATTRIBUTE(attr_fPGAVersion_read,MAX_STRING_LENGTH);
@@ -988,7 +986,7 @@ void VieworksVP::read_triggerPolarity(Tango::Attribute &attr)
 
     try
     {
-        m_camera->getTriggerPolaroty(*attr_triggerPolarity_read);
+        m_camera->getTriggerPolarity(*attr_triggerPolarity_read);
         attr.set_value(attr_triggerPolarity_read);
     }
     catch(Tango::DevFailed& df)
