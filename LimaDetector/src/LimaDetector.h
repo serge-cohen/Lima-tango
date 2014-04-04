@@ -33,21 +33,18 @@
 #ifndef _LimaDetector_H
 #define _LimaDetector_H
 
-#ifdef WIN32
 #include "Factory.h"
 //- Tango
 #include <tango.h>
+
 //- YAT/YAT4TANGO
 #include <yat4tango/InnerAppender.h>
 #include <yat4tango/DynamicAttributeManager.h>
-#include <yat/utils/XString.h>
-#endif
 
 //- STL 
 #include <algorithm>
 #include <string>
 #include <iostream>
-
 
 //- LIMA
 #include "Debug.h"
@@ -66,20 +63,7 @@
 //- This Device
 #include "AcquisitionTask.h"
 
-
-#ifndef WIN32
-#include "Factory.h"
-//- Tango
-#include <tango.h>
-//- YAT/YAT4TANGO
-#include <yat4tango/InnerAppender.h>
-#include <yat4tango/DynamicAttributeManager.h>
-#include <yat/utils/XString.h>
-#endif
-
-
-
-//using namespace lima;
+using namespace lima;
 using namespace std;
 using namespace yat4tango;
 
@@ -91,6 +75,8 @@ using namespace yat4tango;
  //    Add your own constant definitions here.
  //-----------------------------------------------
 
+#define MAX_ATTRIBUTE_STRING_LENGTH     256
+const size_t LOG_BUFFER_DEPTH           = 1024;
 
 namespace LimaDetector_ns
 {

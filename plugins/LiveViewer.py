@@ -76,8 +76,8 @@ class MyImageAttr(PyTango.ImageAttr):
 class LiveViewer (PyTango.Device_4Impl):
     Core.DEB_CLASS(Core.DebModApplication, 'LimaCCDs')
 
-    attr_Exposure_Time = 0.01
-    attr_Nb_Frame = 0
+    attr_Exposure_Time = 1 
+    attr_Nb_Frame = 1
     attr_Frame_Rate = 20
     attr_JPeg_Quality = 50
     
@@ -116,9 +116,6 @@ class LiveViewer (PyTango.Device_4Impl):
         except:
 	    self.warn_stream("Failed to initialize dynamic attributes")
 	    
-	#set default acquisition params 
-	self.acquisition.setAcqExpoTime(self.attr_Exposure_Time)
-        self.acquisition.setAcqNbFrames(self.attr_Nb_Frame)
         try:
             self.interface.setFrameRate(self.attr_Frame_Rate)
         except:
@@ -160,8 +157,8 @@ class LiveViewer (PyTango.Device_4Impl):
 
         imageType, imageSign, imageTgType = self.get_ImageType()
         dim = self.image.getImageDim()
-	
-        image_attr = MyImageAttr(imageTgType, dim.getSize().getWidth(), dim.getSize().getHeight())
+        maxSize = max(dim.getSize().getWidth(), dim.getSize().getHeight())
+        image_attr = MyImageAttr(imageTgType, maxSize, maxSize)
 	
         # Set default properties
         defprop = PyTango.UserDefaultAttrProp()
@@ -325,8 +322,8 @@ class LiveViewer (PyTango.Device_4Impl):
     @Core.DEB_MEMBER_FUNCT
     def read_Roi(self,attr) :        
         roi = self.image.getRoi()
-	p0 = roi.getTopLeft(); p1 = roi.getBottomRight()
-	value=[p0.x,p1.x,p0.y,p1.y]
+	p0 = roi.getTopLeft(); size = roi.getSize()
+	value=[p0.x,p0.y,size.getWidth(),size.getHeight()]
 	
         attr.set_value(value)
 
@@ -336,11 +333,12 @@ class LiveViewer (PyTango.Device_4Impl):
     def write_Roi(self, attr):
 
         data=attr.get_write_value()
-	state  = dev_state()
+	state  = self.dev_state()
 	self.Stop()
         
 	roi = Core.Roi()
-	roi.setCorners(Core.Point(data[0],data[1]), Core.Point(data[2],data[3]))
+	roi.setTopLeft(Core.Point(data[0],data[1]))
+	roi.setSize(Core.Size(data[2],data[3]))
 	self.image.setRoi(roi)
 	
         if state == PyTango.DevState.ON: self.Start()
@@ -570,7 +568,7 @@ class LiveViewerClass(PyTango.DeviceClass):
             PyTango.READ_WRITE,4],
          {
              'label':"Region of Interest",
-             'description':"ROI definition: startX, endX, stopY, endY",
+             'description':"ROI definition: startX, startY, width, height",
              'unit':"",
              'standard unit':"",
              'display unit':"",

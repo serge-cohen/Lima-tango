@@ -178,6 +178,7 @@ class LimaTacoCCDs(PyTango.Device_4Impl, object):
 	self.__entry_header_delimiter = '\n'
         self.__image_number_header_delimiter = ';'
 
+        self.__last_exp_time= None
 
 #------------------------------------------------------------------
 #    Device destructor
@@ -427,6 +428,7 @@ class LimaTacoCCDs(PyTango.Device_4Impl, object):
         if exp_time > 0. :
 	    acq.setAcqExpoTime(exp_time)
 
+        self.__last_exp_time= exp_time
 
 #------------------------------------------------------------------
 #    DevCcdGetExposure command:
@@ -507,6 +509,8 @@ class LimaTacoCCDs(PyTango.Device_4Impl, object):
         if pars.suffix.lower()[-4:] == '.edf':
             pars.fileFormat = Core.CtSaving.EDF
         elif pars.suffix.lower()[-6:] == '.edfgz':
+            pars.fileFormat = Core.CtSaving.EDFGZ
+        elif pars.suffix.lower()[-7:] == '.edf.gz':
             pars.fileFormat = Core.CtSaving.EDFGZ
         elif pars.suffix.lower()[-4:] == '.cbf':
             pars.fileFormat = Core.CtSaving.CBFFormat
@@ -783,9 +787,12 @@ class LimaTacoCCDs(PyTango.Device_4Impl, object):
     @Core.DEB_MEMBER_FUNCT
     def DevCcdWriteFile(self, frame_nb):
         synchronous = not self.ManualAsynchronousWrite
-	control = _control_ref()
+        control = _control_ref()
         saving = control.saving()
-        saving.writeFrame(frame_nb,1,synchronous)
+        try:
+                saving.writeFrame(frame_nb,1,synchronous)
+        except TypeError:
+                saving.writeFrame(frame_nb,1)
 
 #------------------------------------------------------------------
 #    DevCcdWriteAll command:
@@ -871,6 +878,9 @@ class LimaTacoCCDs(PyTango.Device_4Impl, object):
             triggerMode = Core.IntTrig
         elif argin == 1:
             triggerMode = Core.ExtTrigSingle
+            if self.__last_exp_time is not None:
+                if self.__last_exp_time == 0:
+                    triggerMode = Core.ExtGate
         elif argin == 2:
             triggerMode = Core.ExtTrigMult
         elif argin == 3:
