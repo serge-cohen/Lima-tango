@@ -240,6 +240,7 @@ public :
  *	- EDF<BR>
  *	- NXS<BR>
  *	- RAW<BR>
+ *	- TIFF<BR>
  *	
  */
 	string	fileFormat;

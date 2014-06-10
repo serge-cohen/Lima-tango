@@ -741,7 +741,7 @@ void LimaDetectorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Attribute : fileGeneration
 	fileGenerationAttrib	*file_generation = new fileGenerationAttrib();
 	Tango::UserDefaultAttrProp	file_generation_prop;
-	file_generation_prop.set_description("Allow to save grabbed frames into a file on disk.<br>\nAvailable formats for the file are:  EDF, RAW, NXS<br>\nThe format is fixed in FileFormat property.<br>");
+	file_generation_prop.set_description("Allow to save grabbed frames into a file on disk.<br>\nAvailable formats for the file are:  EDF, RAW, NXS, TIFF<br>\nThe format is fixed in FileFormat property.<br>");
 	file_generation->set_default_properties(file_generation_prop);
 	file_generation->set_disp_level(Tango::EXPERT);
 	file_generation->set_memorized();
@@ -870,7 +870,7 @@ void LimaDetectorClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 
 	prop_name = "FileFormat";
-	prop_desc = "Define the format of image files :<BR>\nAvailables values :<br>\n- EDF<BR>\n- NXS<BR>\n- RAW<BR>\n";
+	prop_desc = "Define the format of image files :<BR>\nAvailables values :<br>\n- EDF<BR>\n- NXS<BR>\n- RAW<BR>\n- TIFF<BR>\n";
 	prop_def  = "NXS";
 	vect_data.clear();
 	vect_data.push_back("NXS");

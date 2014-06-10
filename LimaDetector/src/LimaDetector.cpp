@@ -463,6 +463,11 @@ void LimaDetector::init_device()
 			m_saving_par.fileFormat = CtSaving::CBFFormat;
 			m_saving_par.suffix = ".cbf";
 		}
+		else if (fileFormat == "TIFF")
+		{
+			m_saving_par.fileFormat = CtSaving::TIFFFormat;
+			m_saving_par.suffix = ".tiff";
+		}
 		else
 		{
 			m_saving_par.fileFormat = CtSaving::RAW;
