@@ -266,6 +266,25 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	adc_gain_str->set_default_properties(adc_gain_str_prop);
 	att_list.push_back(adc_gain_str);
 
+	//	Attribute : simpleGain
+	simpleGainAttrib	*simple_gain = new simpleGainAttrib();
+	Tango::UserDefaultAttrProp	simple_gain_prop;
+	simple_gain_prop.set_label("Simple Gain setting");
+	simple_gain_prop.set_format("%d");
+	simple_gain_prop.set_max_value("3");
+	simple_gain_prop.set_min_value("0");
+	simple_gain_prop.set_description("A simple way to set the gain. Either 'low noise', 'low signal' or 'high dynamic range'.\nAs the index of the hardware's SDK enum.");
+	simple_gain->set_default_properties(simple_gain_prop);
+	att_list.push_back(simple_gain);
+
+	//	Attribute : simpleGainStr
+	simpleGainStrAttrib	*simple_gain_str = new simpleGainStrAttrib();
+	Tango::UserDefaultAttrProp	simple_gain_str_prop;
+	simple_gain_str_prop.set_label("Simple gain");
+	simple_gain_str_prop.set_description("String as returned by the SDK");
+	simple_gain_str->set_default_properties(simple_gain_str_prop);
+	att_list.push_back(simple_gain_str);
+
 	//	Attribute : adcRate
 	adcRateAttrib	*adc_rate = new adcRateAttrib();
 	Tango::UserDefaultAttrProp	adc_rate_prop;
@@ -300,11 +319,19 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	electronic_shutter_mode->set_memorized_init(true);
 	att_list.push_back(electronic_shutter_mode);
 
+	//	Attribute : electronicShutterModeStr
+	electronicShutterModeStrAttrib	*electronic_shutter_mode_str = new electronicShutterModeStrAttrib();
+	Tango::UserDefaultAttrProp	electronic_shutter_mode_str_prop;
+	electronic_shutter_mode_str_prop.set_label("Electronic Shutter Mode");
+	electronic_shutter_mode_str_prop.set_description("The shuttering mode, as a string (read-only)");
+	electronic_shutter_mode_str->set_default_properties(electronic_shutter_mode_str_prop);
+	att_list.push_back(electronic_shutter_mode_str);
+
 	//	Attribute : temperatureSP
 	temperatureSPAttrib	*temperature_sp = new temperatureSPAttrib();
 	Tango::UserDefaultAttrProp	temperature_sp_prop;
 	temperature_sp_prop.set_label("Temperature SP");
-	temperature_sp_prop.set_unit("°C");
+	temperature_sp_prop.set_unit("Â°C");
 	temperature_sp_prop.set_description("Temperature SP");
 	temperature_sp->set_default_properties(temperature_sp_prop);
 	att_list.push_back(temperature_sp);
@@ -313,7 +340,7 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	temperatureAttrib	*temperature = new temperatureAttrib();
 	Tango::UserDefaultAttrProp	temperature_prop;
 	temperature_prop.set_label("Temperature");
-	temperature_prop.set_unit("°C");
+	temperature_prop.set_unit("Â°C");
 	temperature_prop.set_description("Temperature");
 	temperature->set_default_properties(temperature_prop);
 	att_list.push_back(temperature);
@@ -335,6 +362,159 @@ void Andor3Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	cooling_status_prop.set_label("Cooling Status");
 	cooling_status->set_default_properties(cooling_status_prop);
 	att_list.push_back(cooling_status);
+
+	//	Attribute : fanSpeed
+	fanSpeedAttrib	*fan_speed = new fanSpeedAttrib();
+	Tango::UserDefaultAttrProp	fan_speed_prop;
+	fan_speed_prop.set_label("Fan Speed");
+	fan_speed_prop.set_description("The speed of the fan, as an index on the hardware's SDK enum.\n0 > Fast, 1 > slow, 2 > No fan");
+	fan_speed->set_default_properties(fan_speed_prop);
+	fan_speed->set_disp_level(Tango::EXPERT);
+	att_list.push_back(fan_speed);
+
+	//	Attribute : fanSpeedStr
+	fanSpeedStrAttrib	*fan_speed_str = new fanSpeedStrAttrib();
+	Tango::UserDefaultAttrProp	fan_speed_str_prop;
+	fan_speed_str_prop.set_label("Fan speed");
+	fan_speed_str_prop.set_description("The string returned by the SDK");
+	fan_speed_str->set_default_properties(fan_speed_str_prop);
+	fan_speed_str->set_disp_level(Tango::EXPERT);
+	att_list.push_back(fan_speed_str);
+
+	//	Attribute : bufferOverflow
+	bufferOverflowAttrib	*buffer_overflow = new bufferOverflowAttrib();
+	Tango::UserDefaultAttrProp	buffer_overflow_prop;
+	buffer_overflow_prop.set_label("Buffer Overflow notification");
+	buffer_overflow_prop.set_description("BufferOverflow feature of the Andor SDK v3");
+	buffer_overflow->set_default_properties(buffer_overflow_prop);
+	buffer_overflow->set_disp_level(Tango::EXPERT);
+	att_list.push_back(buffer_overflow);
+
+	//	Attribute : overlap
+	overlapAttrib	*overlap = new overlapAttrib();
+	Tango::UserDefaultAttrProp	overlap_prop;
+	overlap_prop.set_label("Overlap readout");
+	overlap_prop.set_max_value("1");
+	overlap_prop.set_min_value("0");
+	overlap_prop.set_description("Should the next exposure overlap with the readout of the current frame");
+	overlap->set_default_properties(overlap_prop);
+	overlap->set_disp_level(Tango::EXPERT);
+	att_list.push_back(overlap);
+
+	//	Attribute : syncTriggering
+	syncTriggeringAttrib	*sync_triggering = new syncTriggeringAttrib();
+	Tango::UserDefaultAttrProp	sync_triggering_prop;
+	sync_triggering_prop.set_label("Synchronous triggering");
+	sync_triggering_prop.set_max_value("1");
+	sync_triggering_prop.set_min_value("0");
+	sync_triggering_prop.set_description("Turn the synchronous triggering of the camera on/off");
+	sync_triggering->set_default_properties(sync_triggering_prop);
+	sync_triggering->set_disp_level(Tango::EXPERT);
+	att_list.push_back(sync_triggering);
+
+	//	Attribute : spuriousNoiseFilter
+	spuriousNoiseFilterAttrib	*spurious_noise_filter = new spuriousNoiseFilterAttrib();
+	Tango::UserDefaultAttrProp	spurious_noise_filter_prop;
+	spurious_noise_filter_prop.set_label("Spurious noise filter");
+	spurious_noise_filter_prop.set_max_value("1");
+	spurious_noise_filter_prop.set_min_value("0");
+	spurious_noise_filter_prop.set_description("Setting the spuriousNoiseFilter of the camera on/off.\nOn gives a better image for direct visual inspection, off is closer to the actual measure.");
+	spurious_noise_filter->set_default_properties(spurious_noise_filter_prop);
+	spurious_noise_filter->set_disp_level(Tango::EXPERT);
+	att_list.push_back(spurious_noise_filter);
+
+	//	Attribute : bytesPerPixel
+	bytesPerPixelAttrib	*bytes_per_pixel = new bytesPerPixelAttrib();
+	Tango::UserDefaultAttrProp	bytes_per_pixel_prop;
+	bytes_per_pixel_prop.set_label("Bytes per pixel");
+	bytes_per_pixel_prop.set_description("The number of bytes used in transmission/storage of a pixel.");
+	bytes_per_pixel->set_default_properties(bytes_per_pixel_prop);
+	bytes_per_pixel->set_disp_level(Tango::EXPERT);
+	att_list.push_back(bytes_per_pixel);
+
+	//	Attribute : firmwareVersion
+	firmwareVersionAttrib	*firmware_version = new firmwareVersionAttrib();
+	Tango::UserDefaultAttrProp	firmware_version_prop;
+	firmware_version_prop.set_label("Firmware");
+	firmware_version_prop.set_description("The version of the firmware, as erturned by the hardware's SDK");
+	firmware_version->set_default_properties(firmware_version_prop);
+	firmware_version->set_disp_level(Tango::EXPERT);
+	att_list.push_back(firmware_version);
+
+	//	Attribute : frameRate
+	frameRateAttrib	*frame_rate = new frameRateAttrib();
+	Tango::UserDefaultAttrProp	frame_rate_prop;
+	frame_rate_prop.set_label("Frame rate");
+	frame_rate_prop.set_format("%6.2f");
+	frame_rate_prop.set_description("The current frame rate of the camera, as returned by the camera");
+	frame_rate->set_default_properties(frame_rate_prop);
+	att_list.push_back(frame_rate);
+
+	//	Attribute : frameRateMax
+	frameRateMaxAttrib	*frame_rate_max = new frameRateMaxAttrib();
+	Tango::UserDefaultAttrProp	frame_rate_max_prop;
+	frame_rate_max_prop.set_label("Maximum frame rate");
+	frame_rate_max_prop.set_format("%6.2f");
+	frame_rate_max_prop.set_description("The maximum frame rate, considering the current settings and as returned by the camera");
+	frame_rate_max->set_default_properties(frame_rate_max_prop);
+	att_list.push_back(frame_rate_max);
+
+	//	Attribute : frameRateMin
+	frameRateMinAttrib	*frame_rate_min = new frameRateMinAttrib();
+	Tango::UserDefaultAttrProp	frame_rate_min_prop;
+	frame_rate_min_prop.set_label("Minimum frame rate ");
+	frame_rate_min_prop.set_format("%1.3e");
+	frame_rate_min_prop.set_description("The minimum frame rate, considering the current settings and as returned by the camera");
+	frame_rate_min->set_default_properties(frame_rate_min_prop);
+	att_list.push_back(frame_rate_min);
+
+	//	Attribute : maxFrameRateTransfer
+	maxFrameRateTransferAttrib	*max_frame_rate_transfer = new maxFrameRateTransferAttrib();
+	Tango::UserDefaultAttrProp	max_frame_rate_transfer_prop;
+	max_frame_rate_transfer_prop.set_label("Maximum sustainable frame rate");
+	max_frame_rate_transfer_prop.set_display_unit("%5.2f");
+	max_frame_rate_transfer_prop.set_description("The maximum frame rate sustainable in term of camera to computer interface I/O");
+	max_frame_rate_transfer->set_default_properties(max_frame_rate_transfer_prop);
+	att_list.push_back(max_frame_rate_transfer);
+
+	//	Attribute : fullRoiControl
+	fullRoiControlAttrib	*full_roi_control = new fullRoiControlAttrib();
+	Tango::UserDefaultAttrProp	full_roi_control_prop;
+	full_roi_control_prop.set_label("Full hardware ROI control");
+	full_roi_control_prop.set_description("The hardware enables a full control of the ROI.");
+	full_roi_control->set_default_properties(full_roi_control_prop);
+	full_roi_control->set_disp_level(Tango::EXPERT);
+	att_list.push_back(full_roi_control);
+
+	//	Attribute : imageSize
+	imageSizeAttrib	*image_size = new imageSizeAttrib();
+	Tango::UserDefaultAttrProp	image_size_prop;
+	image_size_prop.set_label("Size of an image");
+	image_size_prop.set_unit("MiB");
+	image_size_prop.set_format("%6.3f");
+	image_size_prop.set_description("The size of an image produced with the current settings (in M Byte = 1024x1024 Byte).");
+	image_size->set_default_properties(image_size_prop);
+	image_size->set_disp_level(Tango::EXPERT);
+	att_list.push_back(image_size);
+
+	//	Attribute : readoutTime
+	readoutTimeAttrib	*readout_time = new readoutTimeAttrib();
+	Tango::UserDefaultAttrProp	readout_time_prop;
+	readout_time_prop.set_label("Readout time");
+	readout_time_prop.set_unit("ms");
+	readout_time_prop.set_format("%6.3f");
+	readout_time_prop.set_description("The sensor readout time, as returned by the hardware/camera in the current settings");
+	readout_time->set_default_properties(readout_time_prop);
+	att_list.push_back(readout_time);
+
+	//	Attribute : serialNumber
+	serialNumberAttrib	*serial_number = new serialNumberAttrib();
+	Tango::UserDefaultAttrProp	serial_number_prop;
+	serial_number_prop.set_label("Serial number");
+	serial_number_prop.set_description("The serial number of the attached camera");
+	serial_number->set_default_properties(serial_number_prop);
+	serial_number->set_disp_level(Tango::EXPERT);
+	att_list.push_back(serial_number);
 
 	//	End of Automatic code generation
 	//-------------------------------------------------------------

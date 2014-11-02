@@ -103,7 +103,6 @@
 #include <Andor3DetInfoCtrlObj.h>
 #include <Andor3Interface.h>
 #include <Andor3RoiCtrlObj.h>
-#include <Andor3ShutterCtrlObj.h>
 #include <Andor3SyncCtrlObj.h>    
 #endif
 
@@ -113,7 +112,6 @@
 #include <VieworksVPDetInfoCtrlObj.h>
 #include <VieworksVPInterface.h>
 #include <VieworksVPRoiCtrlObj.h>
-#include <VieworksVPShutterCtrlObj.h>
 #include <VieworksVPSyncCtrlObj.h>    
 #endif
 

@@ -176,7 +176,7 @@ public:
 class flatFieldOffsetAttrib: public Tango::Attr
 {
 public:
-	flatFieldOffsetAttrib():Attr("flatFieldOffset", Tango::DEV_SHORT, Tango::READ_WRITE) {};
+	flatFieldOffsetAttrib():Attr("flatFieldOffset", Tango::DEV_USHORT, Tango::READ_WRITE) {};
 	~flatFieldOffsetAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)

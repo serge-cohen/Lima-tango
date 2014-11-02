@@ -176,7 +176,7 @@ void Tango::DServer::class_factory()
 #endif
 
 #ifdef VIEWORKSVP_ENABLED
-    add_class(VieworksVP_ns::Andor3Class::init("VieworksVP"));
+    add_class(VieworksVP_ns::VieworksVPClass::init("VieworksVP"));
 #endif
 
 #ifdef HAMAMATSU_ENABLED
