@@ -134,6 +134,7 @@
                             <includePath>specifics/XpadPixelDetector</includePath> -->
                             <includePath>specifics/SimulatorCCD</includePath>                                                        
                             <includePath>specifics/VieworksVP</includePath>                                                        
+                            <includePath>specifics/Andor3</includePath>                                                        
                         </includePaths>
                                 
                         <defines>
@@ -152,6 +153,7 @@
                             <define>XPAD_ENABLED</define> -->
                             <define>SIMULATOR_ENABLED</define>                            		
                             <define>VIEWORKSVP_ENABLED</define>                            		
+			    <define>ANDOR3_ENABLED</define>
                         </defines>                        
                     </cpp>        
 
