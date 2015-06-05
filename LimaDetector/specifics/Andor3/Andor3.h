@@ -49,10 +49,10 @@
 
 #undef RGB24
 
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtImage.h"
-#include "CtAcquisition.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtImage.h"
+#include "lima/CtAcquisition.h"
 #include <Andor3Camera.h>
 #include <Andor3Interface.h>
 #include "Factory.h"

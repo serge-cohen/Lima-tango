@@ -48,10 +48,10 @@
 
 #undef RGB24 // should be fixed with tango8
 
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtAcquisition.h"
-#include "CtImage.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtAcquisition.h"
+#include "lima/CtImage.h"
 #include "Factory.h"
 
 #ifndef WIN32
