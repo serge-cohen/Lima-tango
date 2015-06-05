@@ -47,17 +47,17 @@
 #include <iostream>
 
 //- LIMA
-#include "Debug.h"
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtAcquisition.h"
-#include "CtAccumulation.h"
-#include "CtSaving.h"
-#include "CtBuffer.h"
-#include "CtImage.h"
-#include "Data.h"
-#include "CtVideo.h"
-#include "CtShutter.h"
+#include "lima/Debug.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtAcquisition.h"
+#include "lima/CtAccumulation.h"
+#include "lima/CtSaving.h"
+#include "lima/CtBuffer.h"
+#include "lima/CtImage.h"
+#include "processlib/Data.h"
+#include "lima/CtVideo.h"
+#include "lima/CtShutter.h"
 
 
 
@@ -189,7 +189,10 @@ public:
  *	Define the type of the connected Detector .<BR>
  *	Availables types :<BR>
  *	- AdscCCD<BR>
+ *	- AviexCCD<br>
  *	- BaslerCCD<BR>
+ *	- Eiger<br>
+ *	- Hamamatsu<br>
  *	- MarCCD<BR>
  *	- Pco<BR>
  *	- PerkinElmer<BR>
@@ -208,8 +211,13 @@ public:
  *	- 8 <br>
  *	- 16<br>
  *	- 32<br>
+ *	- 32S<br>
  */
-	Tango::DevUShort	detectorPixelDepth;
+	string	detectorPixelDepth;
+/**
+ *	Special type of the image attribute for display and saving (NOT_USED, FLOAT, ...)
+ */
+	string	specialDisplayType;
 /**
  *	Define the format of video stream: <br>
  *	Availables values :<br>
@@ -274,9 +282,28 @@ public:
  */
 	Tango::DevLong	fileNbFrames;
 /**
+ *	Available only for Nexus format : Fix the SetWriteMode(). <br>
+ *	Available values :<br>
+ *	- IMMEDIATE<br>
+ *	- SYNCHRONOUS<br>
+ *	- DELAYED
+ */
+	string	fileWriteMode;
+/**
+ *	Available only for Nexus format : Fix the SetDataItemMemoryMode().<br>
+ *	Available values :<br>
+ *	- COPY<br>
+ *	- NO_COPY
+ */
+	string	fileMemoryMode;
+/**
  *	Define the Percent of Memory reserved by buffer control (from 0 to 100 %).
  */
 	Tango::DevUShort	bufferMaxMemoryPercent;
+/**
+ *	
+ */
+	Tango::DevBoolean	usePrepareCmd;
 /**
  *	Define modules that we need to have some debug traces.<BR>
  *	Availables values :<BR>
@@ -671,6 +698,10 @@ public:
  */
 	virtual bool is_fileNbFrames_allowed(Tango::AttReqType type);
 /**
+ *	Execution allowed for Prepare command.
+ */
+	virtual bool is_Prepare_allowed(const CORBA::Any &any);
+/**
  *	Execution allowed for Snap command.
  */
 	virtual bool is_Snap_allowed(const CORBA::Any &any);
@@ -712,6 +743,11 @@ public:
  *	@exception DevFailed
  */
 	virtual Tango::DevState	dev_state();
+/**
+ * Prepare the acquisition (Apply parameters like bin/roi/exposure/.. & allocate buffers & ...)
+ *	@exception DevFailed
+ */
+	void	prepare();
 /**
  * Starts the acquisition of a number of frames equal to  'nbFrames' attribute value.
  *	@exception DevFailed
@@ -828,13 +864,17 @@ protected:
     string                              m_trigger_mode; 	//trigger mode name 	(INTERNAL_SINGLE, EXTERNAL_SINGLE, EXTERNAL_MULTI, EXTERNAL_GATE, INTERNAL_MULTI, EXTERNAL_START_STOP, EXTERNAL_READOUT)
     string                              m_shutter_mode; 	//shutter mode name 	(MANUAL, AUTO_FRAME, AUTO_SEQUENCE)
     string                              m_acquisition_mode;	//aquisition mode name 	(SINGLE, ACCUMULATION) nota: imageType is forced to 32 bits in ACCUMULATION MODE
-
+    string                              m_saving_options;
     //-Yat::task objects, manage device Start/Snap/Stop commands
     AcquisitionTask*                    m_acquisition_task;
     AcquisitionTask::AcqConfig          m_acq_conf;
 
+	//-
+	std::vector<std::string>			m_trig_mode_list;
+	std::string							m_trig_mode_list_str;
+
     //- yat image Dynamic/command Attribute    
-    DynamicInterfaceManager m_dim;
+    DynamicInterfaceManager				m_dim;
 
 } ;
 

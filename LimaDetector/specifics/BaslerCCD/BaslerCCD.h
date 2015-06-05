@@ -46,10 +46,10 @@
 
 #include <yat4tango/PropertyHelper.h>
 #include <yat/threading/Mutex.h>
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtAcquisition.h"
-#include "CtImage.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtAcquisition.h"
+#include "lima/CtImage.h"
 #include "Factory.h"
 
 
@@ -100,6 +100,12 @@ public :
 		Tango::DevDouble	attr_gain_write;
 		Tango::DevBoolean	*attr_autoGain_read;
 		Tango::DevBoolean	attr_autoGain_write;
+		Tango::DevLong	*attr_packetSize_read;
+		Tango::DevLong	*attr_interPacketDelay_read;
+		Tango::DevLong	attr_interPacketDelay_write;
+		Tango::DevLong	*attr_bandwidthAssigned_read;
+		Tango::DevLong	*attr_maxThroughput_read;
+		Tango::DevLong	*attr_currentThroughput_read;
 		Tango::DevLong	*attr_statisticsFailedBufferCount_read;
 //@}
 
@@ -117,9 +123,13 @@ public :
  */
 	Tango::DevLong	detectorTimeout;
 /**
- *	Sets the packet size in bytes for the selected steam channel of the Transport Layer.<br>
+ *	Define the packet size for the selected steam channel of the Transport Layer. (in bytes)<br>
  */
 	Tango::DevLong	detectorPacketSize;
+/**
+ *	Memorize/Define the interpacket Delay in ticks for the selected steam channel of the Transport Layer.<br>
+ */
+	Tango::DevLong	memorizedInterPacketDelay;
 /**
  *	Memorize/Define the  attribute  gain at Init device<br>
  */
@@ -229,6 +239,30 @@ public :
  */
 	virtual void write_autoGain(Tango::WAttribute &attr);
 /**
+ *	Extract real attribute values for packetSize acquisition result.
+ */
+	virtual void read_packetSize(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for interPacketDelay acquisition result.
+ */
+	virtual void read_interPacketDelay(Tango::Attribute &attr);
+/**
+ *	Write interPacketDelay attribute values to hardware.
+ */
+	virtual void write_interPacketDelay(Tango::WAttribute &attr);
+/**
+ *	Extract real attribute values for bandwidthAssigned acquisition result.
+ */
+	virtual void read_bandwidthAssigned(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for maxThroughput acquisition result.
+ */
+	virtual void read_maxThroughput(Tango::Attribute &attr);
+/**
+ *	Extract real attribute values for currentThroughput acquisition result.
+ */
+	virtual void read_currentThroughput(Tango::Attribute &attr);
+/**
  *	Extract real attribute values for statisticsFailedBufferCount acquisition result.
  */
 	virtual void read_statisticsFailedBufferCount(Tango::Attribute &attr);
@@ -252,6 +286,26 @@ public :
  *	Read/Write allowed for autoGain attribute.
  */
 	virtual bool is_autoGain_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for packetSize attribute.
+ */
+	virtual bool is_packetSize_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for interPacketDelay attribute.
+ */
+	virtual bool is_interPacketDelay_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for bandwidthAssigned attribute.
+ */
+	virtual bool is_bandwidthAssigned_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for maxThroughput attribute.
+ */
+	virtual bool is_maxThroughput_allowed(Tango::AttReqType type);
+/**
+ *	Read/Write allowed for currentThroughput attribute.
+ */
+	virtual bool is_currentThroughput_allowed(Tango::AttReqType type);
 /**
  *	Read/Write allowed for statisticsFailedBufferCount attribute.
  */

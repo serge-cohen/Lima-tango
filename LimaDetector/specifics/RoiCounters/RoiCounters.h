@@ -50,19 +50,21 @@
 #include <yat/threading/Mutex.h>
 #include <yat/utils/XString.h>
 
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtAcquisition.h"
-#include "CtImage.h"
-#include "SoftOpId.h"
-#include "SoftOpExternalMgr.h"
-#include "Data.h"
-#include "TaskMgr.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtAcquisition.h"
+#include "lima/CtImage.h"
+#include "lima/SoftOpId.h"
+#include "lima/SoftOpExternalMgr.h"
+#include "processlib/Data.h"
+#include "processlib/TaskMgr.h"
 #include <map>
 
 
 #define MAX_ATTRIBUTE_STRING_LENGTH     256
 #define MAX_NB_ROICOUNTERS              32
+
+#define CURRENT_VERSION                 "1.0.0"
 
 //using namespace lima;
 using namespace yat4tango;

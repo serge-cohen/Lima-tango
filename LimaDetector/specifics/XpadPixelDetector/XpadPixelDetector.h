@@ -35,10 +35,10 @@
 
 #include "tango.h"
 
-#include "HwInterface.h"
-#include "CtControl.h"
-#include "CtAcquisition.h"
-#include "CtImage.h"
+#include "lima/HwInterface.h"
+#include "lima/CtControl.h"
+#include "lima/CtAcquisition.h"
+#include "lima/CtImage.h"
 #include <XpadInterface.h>
 #include <XpadCamera.h>
 #include "Factory.h"
@@ -95,7 +95,6 @@ namespace XpadPixelDetector_ns
 		Tango::DevBoolean	attr_enableDoublePixelCorrection_write;
 		Tango::DevDouble	*attr_normalizationFactor_read;
 		Tango::DevDouble	attr_normalizationFactor_write;
-		Tango::DevULong	attr_deadTime_write;
 		Tango::DevULong	attr_init_write;
 		Tango::DevULong	attr_shutter_write;
 		Tango::DevULong	attr_ovf_write;
@@ -246,14 +245,6 @@ namespace XpadPixelDetector_ns
  */
 	virtual void write_normalizationFactor(Tango::WAttribute &attr);
 /**
- *	Extract real attribute values for deadTime acquisition result.
- */
-	virtual void read_deadTime(Tango::Attribute &attr);
-/**
- *	Write deadTime attribute values to hardware.
- */
-	virtual void write_deadTime(Tango::WAttribute &attr);
-/**
  *	Extract real attribute values for init acquisition result.
  */
 	virtual void read_init(Tango::Attribute &attr);
@@ -357,10 +348,6 @@ namespace XpadPixelDetector_ns
  *	Read/Write allowed for normalizationFactor attribute.
  */
 	virtual bool is_normalizationFactor_allowed(Tango::AttReqType type);
-/**
- *	Read/Write allowed for deadTime attribute.
- */
-	virtual bool is_deadTime_allowed(Tango::AttReqType type);
 /**
  *	Read/Write allowed for init attribute.
  */
@@ -574,13 +561,13 @@ namespace XpadPixelDetector_ns
  */
 	void	calibrate_beam(const Tango::DevVarULongArray *);
 /**
- * Start the OTN calibration
+ * Start the Over The Noise calibration
  *	@param	argin	itune, imfp
  *	@exception DevFailed
  */
 	void	calibrate_otn(const Tango::DevVarULongArray *);
 /**
- * Upload a calibration from a file defined in the property CalibrationPath
+ * Upload a calibration from a directory defined in the property CalibrationPath
  *	@exception DevFailed
  */
 	void	upload_calibration();
@@ -616,7 +603,7 @@ namespace XpadPixelDetector_ns
         //	Add your own data members here
         //-----------------------------------------
 
-        bool m_is_device_initialized;
+        bool m_is_device_initialized,m_from_init_device;
         stringstream m_status_message;
         void set_general_purpose_params();
 		std::string m_xpad_model;
