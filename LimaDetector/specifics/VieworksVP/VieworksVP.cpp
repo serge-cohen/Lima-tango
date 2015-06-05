@@ -1089,8 +1089,11 @@ void VieworksVP::read_strobeOffsetMs(Tango::Attribute &attr)
 
     try
     {
-        m_camera->getStrobeOffsetMus(*attr_strobeOffsetMs_read);
-        *attr_strobeOffsetMs_read = *attr_strobeOffsetMs_read / 1000; //- plugin return us so we transform into ms
+      // To insure that the passing by reference on getStrobeXXX is
+      // not affected by variation on the definition of DevULong
+      unsigned int strobe_cache = *attr_strobeOffsetMs_read;
+        m_camera->getStrobeOffsetMus(strobe_cache);
+        *attr_strobeOffsetMs_read = strobe_cache / 1000; //- plugin return us so we transform into ms
         attr.set_value(attr_strobeOffsetMs_read);
     }
     catch(Tango::DevFailed& df)
@@ -1523,7 +1526,11 @@ void VieworksVP::read_temperatureSP(Tango::Attribute &attr)
 
     try
     {
-        m_camera->getTemperatureSP(*attr_temperatureSP_read);
+      // To insure that the passing by reference on getStrobeXXX is
+      // not affected by variation on the definition of DevULong
+      int temp_cache = *attr_temperatureSP_read;
+        m_camera->getTemperatureSP(temp_cache);
+      *attr_temperatureSP_read = temp_cache;
         attr.set_value(attr_temperatureSP_read);
     }
     catch(Tango::DevFailed& df)
